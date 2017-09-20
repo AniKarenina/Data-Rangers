@@ -56,7 +56,7 @@ Our assignment resource allocations are included here to give a general overview
 
 ### Projected Timeline of Project
 
-* We have estimated the time for each deliverable which is represented using the Gantt Chart, which you can find [here](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/WorkPlan_DraftResearchQuestions/ProjectWorkPlan.pdf).
+* We have estimated the time for each deliverable which is represented using the Gantt Chart, which you can find [here](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/WorkPlan/DataRangers_WorkPlan_GanttChart.pdf).
 
 * Projected timeline for the project is 09/16/2017 - 12/6/2017 which comes to _~82 days_.
 > Note : We have taken both weekends and weekdays in account, as being students most of the time we find is over weekends
