@@ -1,6 +1,4 @@
 ## Data Rangers 8086 - Work Plan & RQs
-### 9-20-17
-
 
 #### Data Set Description
 This data is published by the Nebraska Crime Commission, an entity whose mission is to "...develop comprehensive plans and coordinate activities related to the improvement of criminal justice administration among state and local agencies.".  The data comes in 3 separate pdf documents, each corresponding to a data category:  
