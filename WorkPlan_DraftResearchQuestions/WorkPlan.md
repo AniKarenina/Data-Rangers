@@ -41,7 +41,7 @@ Our assignment resource allocations are included here to give a general overview
 | Presentation  | The presentation will be planned and executed as a team, using our domain knowledge and data conclusions from the project | Yes | Yes | Yes |
 | Git Repository Package  | In this deliverable our end-to-end workflow for our Crime in Nebraska data set will be showcased in out team Git repository.  At this stage of the project, it is expected our skills will be well know to each other, and we will be able to delegate tasks efficiently such as programming, writeups, and persona review | Yes | Yes | Yes |
 
-### Reserach Questions
+### Research Questions
 
 * How does weather impact frequency and classes of crime across Nebraska?
 * What year(s) showed the highest increase in property crime (Robbery, Burglary, Larceny Theft, Motor Vehicle Theft)?  Can we hypothesize or find any external explanatory causes for any crime increases or decreases?
