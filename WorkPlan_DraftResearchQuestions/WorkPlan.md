@@ -8,9 +8,9 @@ This data is published by the Nebraska Crime Commission, an entity whose mission
 * Traffic Stops
 * Law Enforcement Staffing  
 
-Crime in Nebraska features aggregated data about types of crimes by age of offenders, geographic population of crime area, and frequency.  Traffic Stops break down annual officer stop data by location, frequency, race, and historical statistics.  Law Enforcement Staffing looks at how police departments deploy their staff, and whether sufficient levels were maintained.
+Crime in Nebraska features aggregated data about types of crimes by age of offenders, geographic population of crime area, and frequency.  Traffic Stops break down annual officer traffic stop data by location, frequency, race, and historical statistics.  Law Enforcement Staffing looks at how police departments deploy their staff, and whether sufficient staffing levels were maintained.
 
-There are at least 10 years of data for each data set, our plan is to scrape each and combine them for analysis.  Data is listed in tables in PDF documents.  The time-series nature of the data provides  interesting options for external data sets to combine with.
+There are at least 10 years of data for each data set, our plan is to scrape each and combine them for analysis.  Data is listed in tables in PDF documents.  The time-series nature of the data provides interesting opportunities to combine with external data sets.
 #### Target Audience
 Our target audience could include individuals from the private, public, for profit, and not-for-profit sectors, including sectors such as:
 
@@ -20,9 +20,9 @@ Our target audience could include individuals from the private, public, for prof
 * Civil Rights Organization
 * Individuals looking to move
 
-As our data deals with types of crime over a geographic area, law enforcement agencies could use it to compare their efficacy in combating certain types of crime year over year.  It could also serve as a nationwide comparator when looking at law and order between states with similar population characteristics.  When combining the Law Enfocement Staffing and Crime in Nebraska statistics, it could be possible to justify hiring additional police or revising staffing levels.  
+As our data deals with types of crime over a geographic area, law enforcement agencies could use it to compare their efficacy in combating certain types of crime year over year.  It could also serve as a nationwide comparator when looking at law and order between states with similar population characteristics.  When combining the Law Enforcement Staffing and Crime in Nebraska statistics, it could be possible to justify hiring additional police or revising staffing levels.  
 
-It's possible to place the crime occurring in different cities across Nebraska.  Many businesses and individuals are interested in tracking crime rates in a geographic area over time.  There is a significant difference living somewhere with high property crimes versus high violent burglary rates.  Insurance companies may adjust their rates based on crime statistics for a city, and how it impacts the life span of individuals living there.
+It's possible to place the crime occurring in different cities across Nebraska.  Many businesses and individuals are interested in tracking crime rates in a geographic area over time.  There is a significant difference living somewhere with high property crimes versus high violent burglary rates.  Insurance companies may adjust their rates based on crime statistics for a city, and how it impacts the life span of individuals living there. Civil Rights organizations may be interested in the types of crimes committed and how police departments hire and treat different groups of individuals.  The type(s) of external data sets we choose to combine with will further influence potential target audiences.
 
 
 #### Project effort allocation
@@ -64,9 +64,9 @@ Chaitra is focused on the draft research questions, Shivani is creating the proj
 Each team member will do their own individual review.
 
 **Data Cleaning Documentation**  
-For this assignment we will each research datasets in the category we are trying to fill in.  We plan to meet as a group, share our findings, and discuss how to best integrate the datasets we found. Each team member will be responsible for contributing a portion of any script or data cleaning documentation.  
+For this assignment we will each research datasets in the category we are trying to complement.  We plan to meet as a group, share our findings, and discuss how to best integrate the datasets we found. Each team member will be responsible for contributing a portion of any script or data cleaning documentation.  
 
-**R Script**  
+**R Script**
 Our R Script will start as an individual process, with each team member practicing on their own data set.  We then plan to meet as a team and share our findings before deciding how to best combine our scripts into a single deliverable.  
 
 **R Plots**  
@@ -79,7 +79,7 @@ The Audience Persona will be a collaborative deliverable - more information will
 Each team member will do their own individual review.
 
 **Presentation**  
-The presentation will be planned and executed as a team, using our domain knowledge and data conclusions from the project.
+The presentation will be planned and executed as a team, using our domain knowledge and conclusions from the project.  Each team member will be responsible for contributing slides and presenting on their work relating to key deliverables throughout the project.
 
 **Git Repository Package**  
-In this deliverable our end-to-end workflow for our Crime in Nebraska data set will be showcased in out team Git repository.  At this stage of the project, it is expected our skills will be well know to each other, and we will be able to delegate tasks efficiently such as programming, writeups, and persona review.
+In this deliverable our end-to-end workflow for our Crime in Nebraska data set will be showcased in our team Git repository.  At this stage of the project, it is expected our skills will be well known to each other, and we will be able to delegate tasks efficiently such as programming, writeups, and persona review.
