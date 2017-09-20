@@ -41,6 +41,18 @@ Our assignment resource allocations are included here to give a general overview
 | Presentation  | The presentation will be planned and executed as a team, using our domain knowledge and data conclusions from the project | Yes | Yes | Yes |
 | Git Repository Package  | In this deliverable our end-to-end workflow for our Crime in Nebraska data set will be showcased in out team Git repository.  At this stage of the project, it is expected our skills will be well know to each other, and we will be able to delegate tasks efficiently such as programming, writeups, and persona review | Yes | Yes | Yes |
 
+### Reserach Questions
+
+* How does weather impact frequency and classes of crime across Nebraska?
+* What year(s) showed the highest increase in property crime (Robbery, Burglary, Larceny Theft, Motor Vehicle Theft)?  Can we hypothesize or find any external explanatory causes for any crime increases or decreases?
+* How do police staffing levels impact overall statewide crime rates?
+* Between 2000-2016, which year reported the lowest number of juvenile offenders? Can we assume that the juvenile crimes across the state of Nebraska has reduced because of external factors such as juvenile programs, education etc.?
+* How does county location impact the clearance level of offenses?
+* Based on the crime rate, which state agency across the state of Nebraska has outperformed?
+* Which year had the highest number of crimes rates in terms of both the juvenile and adult age group?
+* Which year had the highest number of hate crimes? Does race have an impact on hate crimes?
+* How do locations such as commercial, public, residence, school/college influence the crime rate?
+* Which crime class had the highest male female ratio?
 
 ### Projected Timeline of Project
 
