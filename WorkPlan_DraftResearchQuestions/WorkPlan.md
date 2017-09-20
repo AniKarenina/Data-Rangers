@@ -27,6 +27,7 @@ It's possible to place the crime occurring in different cities across Nebraska. 
 
 #### Project effort allocation
 
+Our assignment resource allocations are included here to give a general overview of our expected contributions by assignment based on the information we currently have.  These roles are likely to change and evolve over time as we become more accustomed working together as a team.
 
 | Task | Description | William | Chaitra | Shivani |
 |------|-------------|---------|---------|---------|
@@ -49,38 +50,7 @@ It's possible to place the crime occurring in different cities across Nebraska. 
 * Projected timeline for the project is 09/16/2017 - 12/6/2017 which comes to _~82 days_.
 > Note : We have taken both weekends and weekdays in account, as being students most of the time we find is over weekends
 
-* Our team will take continuous feedbacks within the team members and Professor. We will also do a retrospective after each deliverable to continue doing the good things and to overcome issues and impediments.
+* Our team will take continuous feedbacks within the team members and Professor. We will also do a retrospective after each deliverable to stay on track and overcome issues and impediments.
 
 
 
-
-#### Assignment Responsibilities
-
-Our assignment responsibilities are included here to give a general overview of our expected contributions by assignment based on the information we current have.  These roles are likely to change and evolve over time as we become more accustomed working together as a team.
-
-**Work Plan & RQs**  
-Chaitra is focused on the draft research questions, Shivani is creating the project gantt chart and schedule, and Will is going to complete a write up on 'target audience for the analysis' and 'dataset description'.
-
-**Peer Review 1: RQs**  
-Each team member will do their own individual review.
-
-**Data Cleaning Documentation**  
-For this assignment we will each research datasets in the category we are trying to complement.  We plan to meet as a group, share our findings, and discuss how to best integrate the datasets we found. Each team member will be responsible for contributing a portion of any script or data cleaning documentation.  
-
-**R Script**
-Our R Script will start as an individual process, with each team member practicing on their own data set.  We then plan to meet as a team and share our findings before deciding how to best combine our scripts into a single deliverable.  
-
-**R Plots**  
-This deliverable will follow a similar process to that of the R Script.  We will need to integrate a presentation format, whether HTML or markdown. In order to best decide our presentation strategy, a review of team member skills and interests will be conducted.  
-
-**Audience Persona**  
-The Audience Persona will be a collaborative deliverable - more information will be given in class on this assignment.  
-
-**Peer Review 2: Personas**  
-Each team member will do their own individual review.
-
-**Presentation**  
-The presentation will be planned and executed as a team, using our domain knowledge and conclusions from the project.  Each team member will be responsible for contributing slides and presenting on their work relating to key deliverables throughout the project.
-
-**Git Repository Package**  
-In this deliverable our end-to-end workflow for our Crime in Nebraska data set will be showcased in our team Git repository.  At this stage of the project, it is expected our skills will be well known to each other, and we will be able to delegate tasks efficiently such as programming, writeups, and persona review.
