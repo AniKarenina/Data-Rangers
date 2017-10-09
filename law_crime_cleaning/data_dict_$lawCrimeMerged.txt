@@ -1,0 +1,11 @@
+ft = Full-Time
+pt = Part-Time
+us = Understaffing
+so = Sworn Officer
+f = Female
+m = Male
+c = Civilian
+pop_covered = population covered
+so_per_1000 = sworn officers per 1000 population
+num_res_so = number of reserve sworn officers
+total_crime = the total number of recorded crimes for a department on a given year
