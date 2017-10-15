@@ -56,4 +56,4 @@ Data Checkpoint: law_enforcement_2007-2017_pd.csv
 
 The crime data was merged by agency or department with the law_enforcement_employment data.
 
-Final Cleaned Data: $lawCrimeMerged.csv
+Final Cleaned Data: lawStaff_vs_Crime.csv
