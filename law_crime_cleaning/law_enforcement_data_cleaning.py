@@ -7,11 +7,11 @@
 import pandas as pd
 import numpy as np
 
+# Used to propagate counties for each department throughout the dataset
 #####################################
 ### law_enforcement_county_copier ###
 #####################################
 
-# Used to propagate counties for each department throughout the dataset
 def law_enforcement_county_copier():
     df = pd.read_csv('law_enforcement_2007-2017.csv')
 
@@ -29,11 +29,11 @@ def law_enforcement_county_copier():
 
     df.to_csv('law_enforcement_COUNTIES_2007-2017.csv', index=False)
     
+# Used to turn "P.D." to "PD"
 ######################
 ### period_remover ###
 ######################
 
-# Used to turn "P.D." to "PD"
 def period_remover(csv):
     df = pd.read_csv(csv)
 
@@ -43,12 +43,12 @@ def period_remover(csv):
     df.to_csv('law_enforcement_2007-2017_pd.csv', index=False)
     
 
+# Used to find departments present in "law_enforcement_2007-2017.csv" but not "All_Crimes_by_Year_and_Agency.csv"
+# Used to merge department crime data by year with employment statistics by year
 ###########################
 ### department_merger ###
 ###########################
 
-# Used to find departments present in "law_enforcement_2007-2017.csv" but not "All_Crimes_by_Year_and_Agency.csv"
-# Used to merge department crime data by year with employment statistics by year
 def department_merger(law, crime):
     
     dfLaw = pd.read_csv(law)
