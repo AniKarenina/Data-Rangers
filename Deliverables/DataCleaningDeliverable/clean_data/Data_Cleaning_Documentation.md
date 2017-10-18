@@ -1,4 +1,4 @@
-+**Data Rangers**
+**Data Rangers**
 
 **8086 Data Cleaning Documentation**
 
