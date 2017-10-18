@@ -1,4 +1,4 @@
-#######################
+######################
 ### William Wetzel  ###
 ### MIT License     ###
 ### 8086            ###
@@ -91,5 +91,3 @@ def department_merger(law, crime):
 #law_enforcement_county_copier():   
 #period_remover('law_enforcement_2007-2017.csv')
 #department_merger('law_enforcement_2007-2017.csv', 'All_Crimes_by_Year_and_Agency.txt')
-
-
