@@ -19,13 +19,13 @@ names(lawCrime)
 
 # Replace null values with 0, from inconsistent data cleaning
 columnsToReplace <- lawCrime[,c("us_so_ft", "us_so_pt", "num_res_so",
-                      "us_c_ft", "us_c_pt")]
+                                "us_c_ft", "us_c_pt")]
 columnsToReplace[is.na(columnsToReplace)] <- 0
 lawCrime[,c("us_so_ft", "us_so_pt", "num_res_so",
             "us_c_ft", "us_c_pt")] <- columnsToReplace
 
-# Checking for rows with nulls
-# If nothings prints the data has no nulls
+# Checking for rows with nulls,
+# if nothings prints the data has no nulls
 nulls <- complete.cases(lawCrime)
 nulls
 counter <- 0
@@ -36,9 +36,53 @@ for (null in nulls) {
   counter <- counter+1
 }
 
+# Data is 305 x 18
+dim(lawCrime)
+nrow(lawCrime)
+ncol(lawCrime)
+
+# Create a total full time officer column,
+# combining male and female records
+lawCrime$total_so <- (lawCrime$ft_so_m + lawCrime$ft_so_f)
+# Same for full time civilians
+lawCrime$total_c <- lawCrime$ft_c_m + lawCrime$ft_c_f
+
+
 ######################
 ## Statewide Stats ###
 ######################
+
+# There are 32 departments in Nebraska
+length(unique(lawCrime$department))
+# Spread across 27 counties
+length(unique(lawCrime$county))
+
+# Pop Covered by department
+# 0%    25%    50%    75%   100% 
+# 5111   7026  10195  24490 452252 
+quantile(lawCrime$pop_covered)
+
+# Histograms on the full set of data generally look bad
+hist(lawCrime$total_so)
+## ENHANCEMENT
+# FIX - Checking for and removing outliers in rows
+# FIX I think this needs to do it by year or something
+lawCrimeNoOutliers <- lawCrime
+outliers <- c()
+for (column in names(lawCrimeNoOutliers)) {
+  if (is.numeric(lawCrimeNoOutliers[[column]])) {
+    outliers <- c(boxplot.stats(lawCrimeNoOutliers[[column]]))
+    cat(paste(outliers))
+    # readline(prompt="Press [enter] to continue")
+    lawCrimeNoOutliers <- lawCrimeNoOutliers[!lawCrimeNoOutliers[[column]] %in% outliers,]
+  }
+  
+}
+###
+
+# Not many obvious patterns among data
+pairs(~lawCrime$total_so+lawCrime$total_c+lawCrime$so_per_1000+lawCrime$crime_per_pop_covered,
+      labels = c("Total SO", "Total Civ", "SO per 1000", "Crime Rate"))
 
 # An average of 1.814 sworn officers per 1,000 people in NE for 2007-2016
 mean(lawCrime$so_per_1000)
