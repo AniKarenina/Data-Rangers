@@ -62,6 +62,11 @@ length(unique(lawCrime$county))
 # 5111   7026  10195  24490 452252 
 quantile(lawCrime$pop_covered)
 
+# Full time SO
+#   0%  25%  50%  75% 100% 
+#   3   14   18   38  848 
+quantile(lawCrime$total_so)
+
 # Histograms on the full set of data generally look bad
 hist(lawCrime$total_so)
 ## ENHANCEMENT
