@@ -1,3 +1,11 @@
+#######################################################################################
+#### R script to run exploratory analysis on crime and county population data     #####
+#### and derive corelation between population of county and crime in the county   #####
+#### Also to plot a time series plot for a county crime starting 2017 and taking  #####
+#### in account data from 2007 to 2016 for the "Adam" County                      #####
+#######################################################################################
+
+
 # set the working dir
 setwd('/Users/shivanisingh/Data-Rangers/Deliverables/R_Script_Deliverable')
 
