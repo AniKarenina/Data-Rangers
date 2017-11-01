@@ -145,5 +145,3 @@ plot.ts(data_time_series)
 
 
 
-
-
