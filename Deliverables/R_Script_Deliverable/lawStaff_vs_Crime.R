@@ -72,6 +72,9 @@ hist(lawCrime$total_so)
 ## ENHANCEMENT
 # FIX - Checking for and removing outliers in rows
 # FIX I think this needs to do it by year or something
+# try doing it where you remove rows where the value is greater than,
+# or less than a certain quartile, which you can get -, 
+# look into IQR outlier detection
 lawCrimeNoOutliers <- lawCrime
 outliers <- c()
 for (column in names(lawCrimeNoOutliers)) {
