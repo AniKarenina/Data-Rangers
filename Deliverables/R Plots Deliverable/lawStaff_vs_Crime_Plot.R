@@ -122,17 +122,38 @@ county_SoPer1000 <- county_choropleth(SoPer1000, legend = "Number of Sworn Offic
 # has the lowest ratio
 county_SoPer1000
 
-############
-### More ###
-############
+###################
+### Basic Plots ###
+###################
 
-## Just looking at 2016
+# Create a crime per population covered ratio column
+lawCrime$crime_per_pop_covered <- lawCrime$total_crime / lawCrime$pop_covered
+
+# Just looking at 2016
 lawCrime2016 <- lawCrime[lawCrime$year == 2016,]
-p <- ggplot(lawCrime2016, aes(department, pop_covered, color = department),
-            )
-p + geom_point()
+options(scipen=999)
+# Evidently there are rural communities with crime rates,
+# similiar to that of Omaha and Lincoln
+plot(lawCrime2016$pop_covered, lawCrime2016$crime_per_pop_covered,
+     main = "Comparing Department Population Covered to Crime Rate",
+     xlab = "Population Covered", ylab = "Crime Rate Per 1000",
+     xlim = c(0,500000))
+colnames(lawCrime2016)
 
-plot(lawCrime2016$ft_so_m, lawCrime2016$ft_so_f)
+# Hiring trends by officer gender
+soHires <- aggregate(lawCrime[,c(4,5)],
+                   by=list(year=lawCrime$year),
+                   FUN=sum)
+plot(soHires$year, 
+     soHires$ft_so_m)
+plot(soHires$year, soHires$ft_so_f)
+
+# Hiring trends by civilian gender
+cHires <- aggregate(lawCrime[,c(6,7)],
+                    by=list(year=lawCrime$year),
+                    FUN=sum)
+?plot
+
 
 
 
