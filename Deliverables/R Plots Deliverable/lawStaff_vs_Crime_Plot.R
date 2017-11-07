@@ -67,58 +67,132 @@ postalCodes <- postalCodes[!duplicated(postalCodes$county),]
 nrow(postalCodes)
 # Double check each county still has a match
 lawCrime$county %in% postalCodes$county[postalCodes$State == 'Nebraska']
+
 # Create a new dataframe merging LawCrime with county zip codes
-lawCrimeMapping <- merge(lawCrimeTest, postalCodes, by = "county", type = "inner")
-# Remove state column
+lawCrimeMapping <- merge(lawCrime, postalCodes, by = "county", type = "inner")
+# Remove state and department columns
 colnames(lawCrimeMapping)
-lawCrimeMapping <- lawCrimeMapping[,-19]
-# Create columns with required mapping names
-lawCrimeMapping$region <- lawCrimeMapping$Zip.Code
-lawCrimeMapping$value <- lawCrimeMapping$total_crime
+lawCrimeMapping <- lawCrimeMapping[,-c(21, 3)]
 
-library(choroplethr)
-library(choroplethrMaps)
 
-df_mapping <- lawCrimeMapping[,c("year", "region", "value")]
-df_mapping <- df_mapping[df_mapping$year == 2010,]
+#!!!!! Map only 2016 data !!!!!#
+lawCrimeMapping <- lawCrimeMapping[lawCrimeMapping$year == 2016,]
+# Aggregate a number of columns in the event you want to map different things
+lawCrimeMapping <- aggregate(lawCrimeMapping[,c(3,4,5,6,7,8,9,10,12,13,14,17,18)], 
+                             by=list(county=lawCrimeMapping$county), 
+                             FUN=sum)
+# Calling mapping libraries
+library(readxl)
 library(dplyr)
-
-df_mapping <- aggregate(df_mapping, by=list(region=df_mapping$region), FUN = sum)
-county_choropleth(df_mapping,
-                  title = "2012 County Population Estimates",
-                  legend = "Population", num_colors = 1)
-
-
-# test <- merge(lawCrimeTest, postalCodes, by = "county", type = "inner")
-
-
-
-nrow(test)
-
-lawCrimeTest <- lawCrime
-
-lawCrimeTest$county_zip <- postalCodes$Zip.Code[lawCrimeTest$county == postalCodes$State.Abbreviation,]
-
-nrow(lawCrime)
-
-### One apporoach
-# install.packages("maps")
-# require(maps)
-# m <- map("county", "Nebraska")
-
-
-### tutorial
-
-
-# install.packages(c("choroplethr", "choroplethrMaps"))
 library(choroplethr)
 library(choroplethrMaps)
+library(ggplot2)
+library(maps)
+# Assigning a "region" to each county, 
+# "region" is a ggplot specific mapping address
+data(county.map)
+# Keep Nebraska data only
+county.map <- filter(county.map, STATE == 31)
+# Keep only one region code per county name
+county.map <- county.map[!duplicated(county.map$NAME),]
+# Join by county name
+lawCrimeMapping <- left_join(lawCrimeMapping, county.map, by = c("county" = "NAME"))
+# value is a required mapping column name
+colnames(lawCrimeMapping)[13] <- "value"
+# Plotting by number of full time officers
+county_mapSo <- county_choropleth(lawCrimeMapping, legend = "Number of Sworn Officers, 2016", 
+                                state_zoom = "nebraska", num_colors=6)
+# We can see there are many counties not officially covered by any police department
+county_mapSo
 
-data(df_pop_county)
+# Plotting by population covered
+popCovered <- lawCrimeMapping[,c("region", "pop_covered")]
+colnames(popCovered)[2] <- "value"
+county_mapPop <- county_choropleth(popCovered, legend = "Pop Covered by County Departments, 2016", 
+                                state_zoom = "nebraska", num_colors=6)
+# We can only imagine how departments share coverage of counties they are not based in
+county_mapPop
 
-county_choropleth(df_pop_county,
-                  title = "2012 County Population Estimates",
-                  legend = "Population", num_colors = 1)
+# Plotting by SO per 1000
+SoPer1000 <- lawCrimeMapping[,c("region", "so_per_1000")]
+colnames(SoPer1000)[2] <- "value"
+county_SoPer1000 <- county_choropleth(SoPer1000, legend = "Number of Sworn Officers Per 1000, 2016", 
+                                   state_zoom = "nebraska", num_colors=6)
+# It makes sense the central part of the state, being the most spread out,
+# has the lowest ratio
+county_SoPer1000
+
+############
+### More ###
+############
+
+## Just looking at 2016
+lawCrime2016 <- lawCrime[lawCrime$year == 2016,]
+p <- ggplot(lawCrime2016, aes(department, pop_covered, color = department),
+            )
+p + geom_point()
+
+plot(lawCrime2016$ft_so_m, lawCrime2016$ft_so_f)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### FAILURE
+library("ggcounty")
+library("ggplot2")
+
+# Define heatmap
+lawCrimeMapping$brk <- cut(lawCrimeMapping$count,
+                           breaks=c(0, 10, 15, 40, 45, 90, 450, 650, 850),
+                           labels=c("0-9", "10-14", "15-40", "40-44","45-89", 
+                                    "90-449", "450-649", "650-850"),
+                           include.lowest = TRUE)
+
+NE <- ggcounty.us()# ("Nebraska")
+gg <- us$g
+gg <- gg + geom_map(data=lawCrimeMapping, map=NE$map,
+                    aes(map_id=FIPS, fill=brk),
+                    color="white",size=0.125)
+gg <- gg + scale_fill_manual(values=c("#ffffcc", "#c7e9b4", "#7fcdbb", 
+                                      "#41b6c4", "#2c7fb8", "#253494", 
+                                      "#ffffcc", "#c7e9b4"), 
+                             name="Population")
+
+gg
+
+######
+library("ggcounty")
+data(population) # built-in US population by FIPS code data set
+population$brk <- cut(population$count, 
+                      breaks=c(0, 100, 1000, 10000, 100000, 1000000, 10000000), 
+                      labels=c("0-99", "100-1K", "1K-10K", "10K-100K", 
+                               "100K-1M", "1M-10M"),
+                      include.lowest=TRUE) # define appropriate (& nicely labeled) population breaks
+us <- ggcounty.us()
+gg <- us$g # start the plot with our base map
+gg <- gg + geom_map(data=population, map=us$map,
+                    aes(map_id=FIPS, fill=brk), 
+                    color="white", size=0.125) # add a new geom with our population (choropleth)
+gg <- gg + scale_fill_manual(values=c("#ffffcc", "#c7e9b4", "#7fcdbb", 
+                                      "#41b6c4", "#2c7fb8", "#253494"), 
+                             name="Population")
+
+######
+  
 
