@@ -4,7 +4,7 @@ author: "Shivani, William, Chaitra"
 date: "11/6/2017"
 output: html_document
 ---
-## Scatter plot for Crime in County's of Nebraska against Population of the County
+## Shivani - Scatter plot for Crime in County's of Nebraska against Population of the County
 
 ### Load the Required Libraries
 
@@ -47,7 +47,7 @@ p + geom_point(shape=21, fill="White", size=3,stroke=1.5) + theme(legend.positio
 
 > Using a smaller set of the data set gives more specific details from the visualization perspective and hence it was better to group a set of Counties and visualize crime data for that particular group. 
 
-## Crime_vs_lawStaff Part
+## Will - Mapping Law Enforcement Coverage
 
 ### Data Preparation
 > See "lawStaff_vs_Crime_Plot" R script
@@ -219,6 +219,186 @@ plot(soHires$year,
      ylab = "# NE Female Officers")
 
 ```
+
+
+## Chaitra - Economic Indexes vs. Crime Categories
+
+```{r, include=FALSE}
+setwd("/Users/WillieWetz/Desktop")
+```
+
+```{r}
+d <- read.csv("test.csv")
+```
+
+```{r, include=FALSE}
+pairs = d[, c("S_P_500_Percent_Gain_or_Loss", "Crime_Unknown", "Crime_Criminal_Homicide")]
+# pairs(d, labels = colnames(d), main = "Pair matrix ", pch = 21, bg = c("red", "green3", "blue")[unclass(d$lith)], upper.panel = NULL)
+
+## Performing Correlation and Plotting the data ##
+
+### Relation between the S&P percent gain/loss and the homicide crimes committed
+cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide)
+library(car)
+```
+
+```{r, echo=FALSE}
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide, type='h', main="Rel btwn S&P Percent and homicide crime",col="red", xlab="S&P Percent Gain/Loss", ylab="Criminal Homicide Crime", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the crimes caused due to negligence
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Death_by_Negligence)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Death_by_Negligence, type='h', main="Rel btwn S&P Percent and crimes due to negligence",col="red", xlab="S&P Percent Gain/Loss", ylab="Crimes caused due to negligence", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the  rapes committed
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forcible_Rape)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forcible_Rape, type='h', main="Rel btwn S&P Percent and forcible rapes",col="red", xlab="S&P Percent Gain/Loss", ylab="Forcible Rape Crimes", col.lab="blue", cex=2, cex.lab=0.85)
+```
+### Relation between the S&P percent gain/loss and the crimes resulting from robbery
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Robbery)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Robbery, type='h', main="Rel btwn S&P Percent and crimes_robbery ",col="red", xlab="S&P Percent Gain/Loss", ylab="Crimes Robbery ", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from assault
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Aggravated_Assault)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Aggravated_Assault, type='h', main="Rel btwn S&P Percent and aggravated assault ",col="red", xlab="S&P Percent Gain/Loss", ylab="Aggravated Assault Crimes ", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from burglary
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Burglary)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Burglary, type='h', main="Rel btwn S&P Percent and burglary",col="red", xlab="S&P Percent Gain/Loss", ylab="Burglary Crimes ", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from larceny
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Larceny)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Larceny, type='h', main="Rel btwn S&P Percent and larceny",col="red", xlab="S&P Percent Gain/Loss", ylab="Larceny Crimes ", col.lab="blue", cex=2, cex.lab=0.85)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from motor vehicle theft
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Motor_Vehicle_Theft)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Motor_Vehicle_Theft, type='h', main="Rel btwn S&P Percent and motor vehicle theft",col="red", xlab="S&P Percent Gain/Loss", ylab="Motor Vehicle Theft Crimes ", col.lab="blue", cex=2, cex.lab=0.85, axes=FALSE)
+box()
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from simple assault
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Simple_Assault)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Simple_Assault, type='h', main="Rel btwn S&P Percent and simple assault",col="red", xlab="S&P Percent Gain/Loss", ylab="Simple Assault Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from arson
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Arson)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Arson, type='h', main="Rel btwn NE S&P Percent and arson crimes",col="red", xlab="S&P Percent Gain/Loss", ylab="Arson Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from forgery
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forgery_and_Counterfeiting)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forgery_and_Counterfeiting, type='h', main="Rel btwn S&P Percent and forgery crimes",col="red", xlab="S&P Percent Gain/Loss", ylab="Forgery Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from fraudulency
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Fraud)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Fraud, type='p', main="Rel btwn S&P Percent and fraudulent crimes ",col="red", xlab="S&P Percent Gain/Loss", ylab="Fraudulent Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from embezzlement
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Embezzlement)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Embezzlement, type='h', main="Rel btwn S&P Percent and embezzlement crimes ",col="red", xlab="S&P Percent Gain/Loss", ylab="Embezzlement Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from stolen property
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Stolen_Property)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Stolen_Property, type='h', main="Rel btwn S&P Percent and stolen property related crimes ",col="red", xlab="S&P Percent Gain/Loss", ylab="Stolen Property Crimes ", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from vandalism
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Vandalism)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Vandalism, type='h', main="Rel btwn S&P Percent and vandalism ",col="red", xlab="S&P Percent Gain/Loss", ylab="Vandalism Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and the crimes resulting from weapons
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Weapons)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Weapons, type='h', main="Rel btwn S&P Percent and weapons ",col="red", xlab="S&P Percent Gain/Loss", ylab="Weapons Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and prostitution
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Prostitution)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Prostitution, type='h', main="Rel btwn S&P Percent and prostitution ",col="red", xlab="S&P Percent Gain/Loss", ylab="Prostitution Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and sex offences
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Sex_Offenses)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Sex_Offenses, type='h', main="Rel btwn S&P Percent and sex offences ",col="red", xlab="S&P Percent Gain/Loss", ylab="Sex Offence Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and drug abuse related crimes
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Drug_Abuse_Violations)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Drug_Abuse_Violations, type='h', main="Rel btwn S&P Percent and drug abuse violation ",col="red", xlab="S&P Percent Gain/Loss", ylab="Drug Abuse Violation Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and gambling
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Gambling)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Gambling, type='h', main="Rel btwn S&P Percent and gambling ",col="red", xlab="S&P Percent Gain/Loss", ylab="Gambling Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and family, children offences
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Offense_Against_Family_and_Children)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Offense_Against_Family_and_Children, type='h', main="Rel btwn S&P Percent and family, children offences ",col="red", xlab="S&P Percent Gain/Loss", ylab="Family and Children Offence Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and driving under the influence
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Driving_Under_the_Influence)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Driving_Under_the_Influence, type='h', main="Rel btwn S&P Percent and driving under the influence ",col="red", xlab="S&P Percent Gain/Loss", ylab="Driving under the influnce Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+### p-value=0.8262, thus there exists a correlation between the S&P percent gain/loss and the crimes committed under the influence.
+```
+
+### Relation between the S&P percent gain/loss and liquor laws
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Liquor_Laws)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Liquor_Laws, type='h', main="Rel btwn S&P Percent and liquor laws ",col="red", xlab="S&P Percent Gain/Loss", ylab="Liquor laws related Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and curfew related crimes
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Curfew)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Curfew, type='h', main="Rel btwn S&P Percent and curfew ",col="red", xlab="S&P Percent Gain/Loss", ylab="Cufew related Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the S&P percent gain/loss and runaway
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Runaway)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Runaway, type='h', main="Rel btwn S&P Percent and runaway ",col="red", xlab="S&P Percent Gain/Loss", ylab="Runaway related Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+
+### Relation between the v and dd (total crimes)
+```{r, echo=FALSE}
+#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$dd)
+plot(d$S_P_500_Percent_Gain_or_Loss, d$dd, type='h', main="Rel btwn S&P Percent and total crimes ",col="red", xlab="S&P Percent Gain/Loss", ylab="Total Crimes", col.lab="blue", cex=3, cex.lab=0.90)
+```
+### Analysis Results ###
+
+> From the above analysis, it is observed that the S&P Percent Gain or Loss impacts/influences the crimes caused the under the influence. 
 
 
 
