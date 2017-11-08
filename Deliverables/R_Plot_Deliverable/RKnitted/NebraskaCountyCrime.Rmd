@@ -10,7 +10,7 @@ output: html_document
 
 ```{r}
 library(ggplot2)
-
+setwd("/Users/WillieWetz/Documents/GitHub/Data-Rangers/Deliverables/R_Plot_Deliverable/RKnitted")
 library(ggrepel)
 ```
 
@@ -219,3 +219,6 @@ plot(soHires$year,
      ylab = "# NE Female Officers")
 
 ```
+
+
+

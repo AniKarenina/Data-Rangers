@@ -20,14 +20,14 @@ output: html_document
 > The S&P Percent Gain or Loss data is collected based on the S&P price change from 2007-2016 along with the types of crimes committed in those years. Here, we are analysisng the relation between the S&P percent gain or loss on the types of crimes cmonnitted. This analysis will help us identify patterns in our datasets.
 
 ### Setting the directory ###
-
-setwd("c://Users/Nisha/Desktop/Data cleaning/")
-
+```{r}
+setwd("/Users/WillieWetz/Documents/GitHub/Data-Rangers/Deliverables/R_Plot_Deliverable")
+```
 ### Loading the dataset ###
-
+```{r, include=FALSE}
 d <- read.csv("test.csv")
 View(d)
-
+```
 pairs = d[, c("S_P_500_Percent_Gain_or_Loss", "Crime_Unknown", "Crime_Criminal_Homicide")]
 pairs(d, labels = colnames(d), main = "Pair matrix ", pch = 21, bg = c("red", "green3", "blue")[unclass(d$lith)], upper.panel = NULL)
 
@@ -35,6 +35,7 @@ pairs(d, labels = colnames(d), main = "Pair matrix ", pch = 21, bg = c("red", "g
 
 ### Relation between the S&P percent gain/loss and the homicide crimes committed
 cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide)
+
 plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide, type='h', main="Rel btwn S&P Percent and homicide crime",col="red", xlab="S&P Percent Gain/Loss", ylab="Criminal Homicide Crime", col.lab="blue", cex=2, cex.lab=0.85)
 
 ### Relation between the S&P percent gain/loss and the crimes caused due to negligence
