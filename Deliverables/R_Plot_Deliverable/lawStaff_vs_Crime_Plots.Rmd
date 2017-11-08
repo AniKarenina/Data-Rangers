@@ -1,15 +1,13 @@
-######################################
-### Created by Will Wetzel         ###
-### Released under the MIT license ###
-### 8086 R Script Deliverable      ###
-### 11-8-17                        ###
-######################################
+---
+title: "lawCrimePlots.Rmd"
+author: "Will W"
+date: "11/8/2017"
+output: html_document
+---
+### Data Preparation
+> See "lawStaff_vs_Crime_Plot" R script
 
-setwd('/Users/WillieWetz/Documents/GitHub/Data-Rangers/Deliverables/R Plots Deliverable')
-
-###################
-### Preparation ###
-###################
+```{r, include=FALSE}
 lawCrime <- read.csv("lawStaff_vs_Crime.csv", stringsAsFactors = FALSE)
 
 names(lawCrime)
@@ -81,6 +79,12 @@ lawCrimeMapping <- lawCrimeMapping[lawCrimeMapping$year == 2016,]
 lawCrimeMapping <- aggregate(lawCrimeMapping[,c(3,4,5,6,7,8,9,10,12,13,14,17,18)], 
                              by=list(county=lawCrimeMapping$county), 
                              FUN=sum)
+```
+
+### Mapping the Data
+> See "lawStaff_vs_Crime_Plot" R script
+
+```{r, include=FALSE}
 # Calling mapping libraries
 library(readxl)
 library(dplyr)
@@ -103,16 +107,33 @@ colnames(lawCrimeMapping)[13] <- "value"
 county_mapSo <- county_choropleth(lawCrimeMapping, legend = "Number of Sworn Officers, 2016", 
                                 state_zoom = "nebraska", num_colors=6)
 # We can see there are many counties not officially covered by any police department
-county_mapSo
+```
 
+### Looking at Number of Sworn Officers by County
+> Pretty interesting to see there are many counties which have no police department, our policing data does not reflect how resources are spread out for each one amongst neighboring counties.  Generally, there is one police department per county with 1 exception.  In the middle of the state, we see that the cluster of departments are responsible for patrolling the entire North to South region of the state.  
+
+```{r, echo = FALSE}
+county_mapSo
+```
+
+
+```{r, include=FALSE}
 # Plotting by population covered
 popCovered <- lawCrimeMapping[,c("region", "pop_covered")]
 colnames(popCovered)[2] <- "value"
 county_mapPop <- county_choropleth(popCovered, legend = "Pop Covered by County Departments, 2016", 
                                 state_zoom = "nebraska", num_colors=6)
 # We can only imagine how departments share coverage of counties they are not based in
-county_mapPop
+```
 
+### Population covered by County
+> While we mapped by county, each county represents a department.  Here we can see the general population densities of Nebraska, as well as the additional burden placed on those central agencies - as they have a relatively high amount of population to cover given the size of the geographic area they operate in.
+
+```{r}
+county_mapPop
+```
+
+```{r, include=FALSE}
 # Plotting by SO per 1000
 SoPer1000 <- lawCrimeMapping[,c("region", "so_per_1000")]
 colnames(SoPer1000)[2] <- "value"
@@ -120,12 +141,16 @@ county_SoPer1000 <- county_choropleth(SoPer1000, legend = "Number of Sworn Offic
                                    state_zoom = "nebraska", num_colors=6)
 # It makes sense the central part of the state, being the most spread out,
 # has the lowest ratio
+```
+
+### SO per 1000 People by County
+> This map does not translate well, as obviously departments, while not located in many counties have to go and investigate crimes in counties without a dedicated police department.  It is interesting there appears to be lower police presence on the panhandle portion of the state, while the central region enjoys the best officer to civilian ratio.
+
+```{r, echo=FALSE}
 county_SoPer1000
+```
 
-###################
-### Basic Plots ###
-###################
-
+```{r, include=FALSE}
 # Create a crime per population covered ratio column
 lawCrime$crime_per_pop_covered <- lawCrime$total_crime / lawCrime$pop_covered
 
@@ -139,81 +164,26 @@ plot(lawCrime2016$pop_covered, lawCrime2016$crime_per_pop_covered,
      xlab = "Population Covered", ylab = "Crime Rate Per 1000",
      xlim = c(0,500000))
 colnames(lawCrime2016)
-
 # Hiring trends by officer gender
 soHires <- aggregate(lawCrime[,c(4,5)],
                    by=list(year=lawCrime$year),
                    FUN=sum)
+```
+
+### Annual SO Hiring Trends by Gender
+> Hiring trends appear consistent statewide by gender, although only 5-10 female officers are being hired or leaving each year. Due to the relative involatile nature of this visualization, I'm not sure it's meaningful in our research. 
+
+```{r, echo=FALSE}
 plot(soHires$year, 
-     soHires$ft_so_m)
-plot(soHires$year, soHires$ft_so_f)
+     soHires$ft_so_m,
+     main = "Male SO Staffing Trends",
+     xlab = "Year",
+     ylab = "# NE Male Officers")
 
-# Hiring trends by civilian gender
-cHires <- aggregate(lawCrime[,c(6,7)],
-                    by=list(year=lawCrime$year),
-                    FUN=sum)
-?plot
+plot(soHires$year, 
+     soHires$ft_so_f,
+     main = "Female SO Staffing Trends",
+     xlab = "Year",
+     ylab = "# NE Female Officers")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### FAILURE
-library("ggcounty")
-library("ggplot2")
-
-# Define heatmap
-lawCrimeMapping$brk <- cut(lawCrimeMapping$count,
-                           breaks=c(0, 10, 15, 40, 45, 90, 450, 650, 850),
-                           labels=c("0-9", "10-14", "15-40", "40-44","45-89", 
-                                    "90-449", "450-649", "650-850"),
-                           include.lowest = TRUE)
-
-NE <- ggcounty.us()# ("Nebraska")
-gg <- us$g
-gg <- gg + geom_map(data=lawCrimeMapping, map=NE$map,
-                    aes(map_id=FIPS, fill=brk),
-                    color="white",size=0.125)
-gg <- gg + scale_fill_manual(values=c("#ffffcc", "#c7e9b4", "#7fcdbb", 
-                                      "#41b6c4", "#2c7fb8", "#253494", 
-                                      "#ffffcc", "#c7e9b4"), 
-                             name="Population")
-
-gg
-
-######
-library("ggcounty")
-data(population) # built-in US population by FIPS code data set
-population$brk <- cut(population$count, 
-                      breaks=c(0, 100, 1000, 10000, 100000, 1000000, 10000000), 
-                      labels=c("0-99", "100-1K", "1K-10K", "10K-100K", 
-                               "100K-1M", "1M-10M"),
-                      include.lowest=TRUE) # define appropriate (& nicely labeled) population breaks
-us <- ggcounty.us()
-gg <- us$g # start the plot with our base map
-gg <- gg + geom_map(data=population, map=us$map,
-                    aes(map_id=FIPS, fill=brk), 
-                    color="white", size=0.125) # add a new geom with our population (choropleth)
-gg <- gg + scale_fill_manual(values=c("#ffffcc", "#c7e9b4", "#7fcdbb", 
-                                      "#41b6c4", "#2c7fb8", "#253494"), 
-                             name="Population")
-
-######
-  
-
+```
