@@ -230,7 +230,7 @@ plot(soHires$year,
 setwd("/Users/WillieWetz/Desktop")
 ```
 
-```{r}
+```{r, include=FALSE}
 d <- read.csv("test.csv")
 ```
 
@@ -245,46 +245,10 @@ cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide)
 library(car)
 ```
 
-```{r, echo=FALSE}
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Criminal_Homicide, type='h', main="Rel btwn S&P Percent and homicide crime",col="red", xlab="S&P Percent Gain/Loss", ylab="Criminal Homicide Crime", col.lab="blue", cex=2, cex.lab=0.85)
-```
+!["Rplot for crimes resulting from drug abuse"](/Users/WillieWetz/Downloads/Rplot_drug abuse.jpeg)
+!["Rplot for crimes resulting from curfew"](/Users/WillieWetz/Downloads/Rplot_curfew crimes.jpeg)
 
-### Relation between the S&P percent gain/loss and the crimes caused due to negligence
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Death_by_Negligence)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Death_by_Negligence, type='h', main="Rel btwn S&P Percent and crimes due to negligence",col="red", xlab="S&P Percent Gain/Loss", ylab="Crimes caused due to negligence", col.lab="blue", cex=2, cex.lab=0.85)
-```
-
-### Relation between the S&P percent gain/loss and the  rapes committed
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forcible_Rape)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Forcible_Rape, type='h', main="Rel btwn S&P Percent and forcible rapes",col="red", xlab="S&P Percent Gain/Loss", ylab="Forcible Rape Crimes", col.lab="blue", cex=2, cex.lab=0.85)
-```
-
-### Relation between the S&P percent gain/loss and the crimes resulting from robbery
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Robbery)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Robbery, type='h', main="Rel btwn S&P Percent and crimes_robbery ",col="red", xlab="S&P Percent Gain/Loss", ylab="Crimes Robbery ", col.lab="blue", cex=2, cex.lab=0.85)
-```
-
-### Relation between the S&P percent gain/loss and the crimes resulting from assault
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Aggravated_Assault)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Aggravated_Assault, type='h', main="Rel btwn S&P Percent and aggravated assault ",col="red", xlab="S&P Percent Gain/Loss", ylab="Aggravated Assault Crimes ", col.lab="blue", cex=2, cex.lab=0.85)
-```
-
-### Relation between the S&P percent gain/loss and the crimes resulting from burglary
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Burglary)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Burglary, type='h', main="Rel btwn S&P Percent and burglary",col="red", xlab="S&P Percent Gain/Loss", ylab="Burglary Crimes ", col.lab="blue", cex=2, cex.lab=0.85)
-```
-
-### Relation between the S&P percent gain/loss and driving under the influence
-```{r, echo=FALSE}
-#cor.test(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Driving_Under_the_Influence)
-plot(d$S_P_500_Percent_Gain_or_Loss, d$Crime_Driving_Under_the_Influence, type='h', main="Rel btwn S&P Percent and driving under the influence ",col="red", xlab="S&P Percent Gain/Loss", ylab="Driving under the influnce Crimes", col.lab="blue", cex=3, cex.lab=0.90)
-### p-value=0.8262, thus there exists a correlation between the S&P percent gain/loss and the crimes committed under the influence.
-```
+!["plot for crimes resulting from assault"](/Users/WillieWetz/Downloads/ggplot 1.jpeg)
 
 ### Analysis Results ###
 
@@ -301,17 +265,17 @@ d <- read.csv("test.csv")
 ```
 
 ### Relation between the unemeployment rate in Nebraska and the crimes resulting from simple assault
-```{r}
+```{r, echo=FALSE}
 plot(d$NE_Unemployment_Rate, d$Crime_Simple_Assault, type='h', main="Rel btwn NE unemp_rate and simple assault",col="red", xlab="NE Unemployment Rate", ylab="Simple Assault Crimes ", col.lab="blue", cex=3, cex.lab=0.90)  
 ```
 
 ### Relation between the unemeployment rate in Nebraska and drug abuse related crimes
-```{r}
+```{r, echo=FALSE}
 plot(d$NE_Unemployment_Rate, d$Crime_Drug_Abuse_Violations, type='h', main="Rel btwn NE unemp_rate and drug abuse violation ",col="red", xlab="NE Unemployment Rate", ylab="Drug Abuse Violation Crimes", col.lab="blue", cex=3, cex.lab=0.90)
 ```
 
 ### Relation between the unemeployment rate in Nebraska and curfew related crimes
-```{r}
+```{r, echo=FALSE}
 plot(d$NE_Unemployment_Rate, d$Crime_Curfew, type='h', main="Rel btwn NE unemp_rate and curfew ",col="red", xlab="NE Unemployment Rate", ylab="Cufew related Crimes", col.lab="blue", cex=3, cex.lab=0.90)
 ```
 
