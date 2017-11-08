@@ -5,7 +5,7 @@
 ### 11-8-17                        ###
 ######################################
 
-setwd('/Users/WillieWetz/Documents/GitHub/Data-Rangers/Deliverables/R Plots Deliverable')
+setwd('/Users/WillieWetz/Documents/GitHub/Data-Rangers/Deliverables/R_Plot_Deliverable')
 
 ###################
 ### Preparation ###
@@ -77,6 +77,8 @@ lawCrimeMapping <- lawCrimeMapping[,-c(21, 3)]
 
 #!!!!! Map only 2016 data !!!!!#
 lawCrimeMapping <- lawCrimeMapping[lawCrimeMapping$year == 2016,]
+colnames(lawCrimeMapping)
+str(lawCrimeMapping)
 # Aggregate a number of columns in the event you want to map different things
 lawCrimeMapping <- aggregate(lawCrimeMapping[,c(3,4,5,6,7,8,9,10,12,13,14,17,18)], 
                              by=list(county=lawCrimeMapping$county), 
