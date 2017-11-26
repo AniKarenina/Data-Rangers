@@ -1,0 +1,31 @@
+## Data Rangers
+### Crime in Nebraska Series
+### ISQA-8086
+Shivani Singh Parihar  
+Chaitra Venkatesan  
+William Wetzel
+
+#### Crime in Nebraska Summary
+
+Our 3 member team used open source data analysis tools to answer self-developed research questions:
+
+1. How does the population level of a county impact the type of crimes committed?
+2. How do police staffing levels impact overall crime rates?
+3. How do the types and amounts of crime committed change over the course of a year?
+
+Data was primarily collected from the [Nebraska Crime Commission](https://ncc.nebraska.gov/), with some additional publically available data.
+ 
+#### Project License
+----Standard [MIT License](https://opensource.org/licenses/MIT) Applies to all code, research, works, and all other items owned by the Data Rangers research team in this Repository----
+
+#### Contents
+Contained in this repository are conclusions relating to the data analysis of Nebraska crime and law enforcement data done over the course of a semester by the Data Rangers research team. For a full backround on the origination of the data, research methodology, and findings, please see the full **_written summary_**.  All code used in this project can be found within the data rangers repository, with key pieces in this directory.
+
+1. **_Knitted Deliverable_**
+
+  To run the data cleaning python code present in the knitted HTML document, you will need to install and configure [PRAW](https://www.r-bloggers.com/calling-python-from-r-with-rpython/) - or we recommend the [Anaconda Distribution](https://www.anaconda.com/distribution/) of python to ensure all required dependencies are met to run the included python code. 
+
+2. **_Audience Persona_**
+3. **_Full Written Summary_**
+4. **_Presentation Materials_**
+5. **_Contributorship_**

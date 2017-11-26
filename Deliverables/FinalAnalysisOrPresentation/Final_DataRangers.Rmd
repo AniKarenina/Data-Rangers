@@ -1,0 +1,190 @@
+---
+title: "Final_DataRangers_8086"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Research Data Sets
+Our project includes the use of 3 research questions, each paired with a distinct data set:
+
+1. How does the population level of a county impact the type of crimes committed?
+  * County Population and Crime
+2. How do police staffing levels impact overall crime rates?
+  * Law Enforcement Staffing Rates
+3. How do the types and amounts of crime committed change over the course of a year?
+  * Unemployment Level and Crime
+
+Portions of this report are proceeded by the above titles to indicate which data and research questions they relate to.
+
+### Data Cleaning
+
+See Readme for further details on Data Cleaning code.
+
+#### County Population and Crime Data set
+
+```{r eval=FALSE}
+# Set the working directory to where you have your CSVs placed
+
+setwd('/Users/shivanisingh/python_Datacleaning')
+
+# Create a dataframe by reading the CSVs
+t1 = read.csv('County_and_agency_based_crime.csv')
+t2 = read.csv('County_population.csv')
+
+# The next line creates a new column 'Population' in table t1 which is 'County_and_agency_based_crime.csv' and populates it with the 'Population'
+# column of table t2 which is 'County_population.csv'.
+# It maps the value for each column by matching the counties in both the table(it takes 'County' column as a key and matches the value)
+t1$Population <- t2$Population[match(t1$County, t2$County)]
+
+# The below line writes the merged CSV to County_crime_and_population_combined.csv
+write.csv(t1, 'County_crime_and_population_combined.csv')
+```
+
+```{r eval=FALSE}
+import pandas as pd 
+import numpy as np 
+
+
+def county_and_agency_crime(crime):
+	df = pd.read_csv('County_and_agency_based_crime.csv')
+	
+	# removes columns before year 2007 and drop the Agency column
+
+	colums_to_remove = [1,2,3,4,5,6,7,8]
+	df.drop(df.columns[colums_to_remove], axis=1, inplace=True)
+	columns_to_group = [0]
+
+	#Group by the crime by eah County
+	df_grouped_by_county = df.groupby('County').sum()
+	print(df_grouped_by_county)
+
+	#write the cleaned data to the 'County_and_agency_based_crime.csv'
+	df_grouped_by_county.to_csv('County_and_agency_based_crime.csv')
+
+
+# formats the raw csv in a way so that it can be compiled with the other csv
+
+def county_population_cleaning(population):
+
+	#used sublime regex to remove the spaces and replace it with '_'
+	#used (?<!p)\h+ and replace with '_'
+	
+	df1 = pd.read_csv('County_population.csv')
+
+	# Replaces the '_County' string from all the County values in order to have consistency through the data being handled and used
+
+	df1['County'].replace('_County','',regex=True, inplace=True)
+
+	# Replaces the '_' with an empty string
+
+	df1['County'].replace('_',' ', regex=True, inplace=True)
+
+
+	# Writes the data to the 'County_population.csv'
+	df1.to_csv('County_population.csv')
+
+# Calling the two data cleaning function
+
+county_and_agency_crime('~/python_Datacleaning/County_and_agency_based_crime.csv')
+county_population_cleaning('~/python_Datacleaning/County_population.csv')
+
+```
+
+#### Law Enforcement Staffing Rates
+
+```{r eval=FALSE}
+import pandas as pd
+import numpy as np
+
+# Used to propagate counties for each department throughout the dataset
+#####################################
+### law_enforcement_county_copier ###
+#####################################
+
+def law_enforcement_county_copier():
+    df = pd.read_csv('law_enforcement_2007-2017.csv')
+
+    nRows = df.shape[0]
+
+    counties = {}
+
+    for row in range(nRows):
+        if  pd.notnull(df.loc[row, 'county']):
+            counties[df.loc[row, 'department']] = df.loc[row, 'county']
+
+    for row in range(nRows):
+        if df.loc[row, 'department'] in counties:
+            df.loc[row, 'county'] = counties[df.loc[row, 'department']]
+
+    df.to_csv('law_enforcement_COUNTIES_2007-2017.csv', index=False)
+    
+# Used to turn "P.D." to "PD"
+######################
+### period_remover ###
+######################
+
+def period_remover(csv):
+    df = pd.read_csv(csv)
+
+    nRows = df.shape[0]
+
+    df['department'] = df['department'].str.replace('.', '')
+    df.to_csv('law_enforcement_2007-2017_pd.csv', index=False)
+    
+
+# Used to find departments present in "law_enforcement_2007-2017.csv" but not "All_Crimes_by_Year_and_Agency.csv"
+# Used to merge department crime data by year with employment statistics by year
+###########################
+### department_merger ###
+###########################
+
+def department_merger(law, crime):
+    
+    dfLaw = pd.read_csv(law)
+    dfCrime = pd.read_table(crime, skiprows=[1,2])
+    
+    # Making a few missing department names match
+    dfCrime['Agency'] = dfCrime['Agency'].str.replace('.', '')
+    dfCrime['Agency'] = dfCrime['Agency'].str.replace('South Sioux City PD', 'So Sioux City PD')
+    dfCrime['Agency'] = dfCrime['Agency'].str.replace('La Vista PD', 'LaVista PD')
+
+    # Checking if all departments between the 2 csvs match
+    departmentResults = dfLaw['department'].isin(dfCrime['Agency'])
+    
+    unmatchedDepartments = []
+    for row in range(departmentResults.size):
+        if departmentResults[row] == False:
+            unmatchedDepartments.append(dfLaw.loc[row, 'department'])    
+    # Get unique names of departments which don't match        
+    unmatchedDepartments = set(unmatchedDepartments)
+        
+    # Merging the 2 dataframes on department and year
+    lawCrimeMerged = dfLaw
+    years = ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016']
+    
+    # Initialize a new column for total crime
+    lawCrimeMerged['total_crime'] = np.nan
+    # For each 
+    for row in range(lawCrimeMerged.shape[0]):
+        tempDataFrame = (dfCrime.loc[dfCrime['Agency'] == lawCrimeMerged.loc[row, 'department']])
+        for year in years:
+            number = int(tempDataFrame[year])
+            index = lawCrimeMerged.index[(lawCrimeMerged['department'] == lawCrimeMerged.loc[row, 'department']) & (lawCrimeMerged['year'] == int(year))].tolist()
+            lawCrimeMerged.loc[index, 'total_crime'] = number            
+
+    lawCrimeMerged.to_csv('lawCrimeMerged.csv', index=False)
+
+
+# Run individual functions here
+
+#law_enforcement_county_copier():   
+#period_remover('law_enforcement_2007-2017.csv')
+#department_merger('law_enforcement_2007-2017.csv', 'All_Crimes_by_Year_and_Agency.txt')
+```
+
+#### Law Enforcement Staffing Rates
+
+
