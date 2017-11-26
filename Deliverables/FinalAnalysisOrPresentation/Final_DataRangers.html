@@ -120,8 +120,8 @@ $(document).ready(function () {
 </div>
 
 
-<div id="research-data-sets" class="section level3">
-<h3>Research Data Sets</h3>
+<div id="research-data-sets" class="section level2">
+<h2>Research Data Sets</h2>
 <p>Our project includes the use of 3 research questions, each paired with a distinct data set:</p>
 <ol style="list-style-type: decimal">
 <li>How does the population level of a county impact the type of crimes committed?</li>
@@ -143,32 +143,252 @@ $(document).ready(function () {
 </ul>
 <p>Portions of this report are proceeded by the above titles to indicate which data and research questions they relate to.</p>
 </div>
-<div id="data-cleaning" class="section level3">
-<h3>Data Cleaning</h3>
+<div id="data-cleaning" class="section level2">
+<h2>Data Cleaning</h2>
+<p><strong>Licensing Information:</strong></p>
+<p>All Nebraska data analyzed in this report falls under a U.S. Government Works license, meaning “…there is generally no copyright restriction on reproduction, derivative works, distribution, performance, or display of a government work.” ( <a href="https://www.usa.gov/government-works" class="uri">https://www.usa.gov/government-works</a>)</p>
+<p>No licensing information was provided for the S&amp;P 500 data obtained from <a href="http://www.multpl.com/" class="uri">http://www.multpl.com/</a>, their site only states “Information is provided ‘as is’ and solely for informational purposes, not for trading purposes or advice, and may be delayed.”.</p>
+<p>The Nebraska unemployment data in this report is fetched from Bureau of Labor Statistics ( <a href="https://data.bls.gov/pdq/SurveyOutputServlet" class="uri">https://data.bls.gov/pdq/SurveyOutputServlet</a>) and according to their website policy, the public has a right to access the Bureau's information and can also request access to federal agency records and obtain information.</p>
+<p>The offence data statistics was obtained from the Nebraska government database ( <a href="http://www.nebraska.gov/crime_commission/arrest/offense.cgi" class="uri">http://www.nebraska.gov/crime_commission/arrest/offense.cgi</a>) and according to their information use policy, the public can access, copy or download the material available on their website.</p>
+<p><strong>Research Questions:</strong></p>
+<p>All research questions concern the years 2007-2016 in the State of Nebraska.</p>
+<p><strong>1.</strong> How does a county's population level impact the types of crimes committed?<br />
+<strong>2.</strong> How do police staffing levels impact overall Nebraska crime rates?<br />
+<strong>3.</strong> What trends in the types and amount of crimes committed can be observed?</p>
+<p><strong>Data Description:</strong></p>
+<p><strong>General Methodology</strong></p>
+<p>This project started when it was discovered the State of Nebraska provides open data querying for numerous government agencies. Among them, the Nebraska Crime Commission (NCC) collects information about arrests, police staffing levels, and geographic crime trends. Through the NCC site (<a href="https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series" class="uri">https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series</a>), we were able to access aggregated data about crime rates going back to 2007. To complement this data, additional tables were scraped from queries executed on the NCC Arrest Data Query page ( <a href="http://www.nebraska.gov/crime_commission/arrest/arrest.cgi" class="uri">http://www.nebraska.gov/crime_commission/arrest/arrest.cgi</a>).</p>
+<p>Within the Arrest Data Query page, there were many options of queries to run. We decided to first define our research questions outlined above, and then scrape the data most helpful to our analysis. Each team member was assigned a question to find, clean, and combine appropriate data for. We will now look at each of these raw data sources in more detail.</p>
+<p><strong>Raw Data Sources:</strong></p>
+<p><strong>Law Enforcement Employment in Nebraska Series, 2016-2007</strong></p>
+<p>Citation:</p>
+<p>“Law Enforcement Employment in Nebraska Series.” 2017, ncc.nebraska.gov/stat-reports#Crime_in_Nebraska_Series. Accessed 1 Oct. 2017.</p>
+<p>Description:</p>
+<p>This data is available as a series of PDFs for the years 2016 to 2001. We are limiting the scope of our research from 2016-2007. Each PDF is 9 pages long, and features data on the full-time, part-time, and understaffing status for each department, for both sworn officer and civilian employees. The main section of each report is an 80 row, 14 column, 2 page table, detailing the aforementioned statistics for each Nebraska police agency.</p>
+<p>There are additional derived tables from this main section, organizing the statistics by cities above and below 5,000 population, and which agencies are state agencies. We chose to analyze the table found on page 4 of the report, agencies who serve cities of above 5,000 people. This data will be combined with crime data for the counties by year, to understand how agency staffing impacts crime levels within the counties they patrol. A sample list of header names would be:</p>
+<ul>
+<li><strong>●</strong> Department</li>
+<li><strong>●</strong> Full- Time Employees</li>
+<li><strong>○</strong> Sworn Officers
+<ul>
+<li><strong>■</strong> Male</li>
+<li><strong>■</strong> Female</li>
+</ul></li>
+<li><strong>○</strong> Civilians
+<ul>
+<li><strong>■</strong> Male</li>
+<li><strong>■</strong> Female</li>
+</ul></li>
+<li><strong>●</strong> Part-Time Employees</li>
+<li><strong>○</strong> Sworn Officers</li>
+<li><strong>○</strong> Civilians</li>
+<li><strong>●</strong> Understaffing</li>
+<li><strong>○</strong> Sworn
+<ul>
+<li><strong>■</strong> Full-Time</li>
+<li><strong>■</strong> Part-Time</li>
+</ul></li>
+<li><strong>○</strong> Civilian
+<ul>
+<li><strong>■</strong> Full-Time</li>
+<li><strong>■</strong> Part-Time</li>
+</ul></li>
+<li><strong>●</strong> Population Covered</li>
+<li><strong>●</strong> Officers Per 1,000 Population</li>
+</ul>
+<p>Metadata:</p>
+<p>As this is a published report and not a table in a database, all row and column titles were clear to understand. There is a textual description at the top of the report detailing where the information was collected from and how to interpret the results. At the end of the report, contracting information for each agency is provided. Google can be used to discover more information about specific agencies.</p>
+<p>Remediation Needed:</p>
+<p>The overarching challenge was converting the data from PDF to an analysis ready format. Once we identified the portion of the report we decided to scrape, further interrogation reveals columns where every value is 0, leading to questions of whether it should be included, and quadruple row header names would be present in our final table. Department names varied across years, and departments were created and disbanded, but the table remained in the same shape.</p>
+<p><strong>Crime in Nebraska Series, 2016-2007</strong></p>
+<p>Citation:</p>
+<p>“Crime in Nebraska Series.” 2017, ncc.nebraska.gov/stat-reports#Crime_in_Nebraska_Series. Accessed 1 Oct. 2017.</p>
+<p>Description:</p>
+<p>This data is available as a series of PDFs for the years 2016 to 2001. We are limiting the scope of our research from 2016-2007. Each PDF is 5 pages long, featuring the following table titles of aggregated crime information for the year.:</p>
+<ul>
+<li><strong>●</strong> Crime Index Offenses, comparing current to previous year</li>
+<li><strong>●</strong> Percent Change - Crime Index Offenses, January thru December, 2015 - 2016 by Population Groups</li>
+<li><strong>●</strong> Total Arrest Trends, 2015 - 2016</li>
+<li><strong>●</strong> A REVIEW OF HATE CRIMES IN NEBRASKA</li>
+</ul>
+<p>If you were to scrape all the data from each PDF, multiple data frames totaling an estimated 100 rows and 25 columns would be created. The reports are created by the NCC in order to give an interested party a general overview of crime within the state, and how it compared to crime from the previous year. This data will be combined with other sources to answer research questions 1 &amp; 3. We identified the table “Percent Change - Crime Index Offenses January thru December, 2015 - 2016 by Population Groups” as the most relevant to our research questions.</p>
+<p>Metadata:</p>
+<p>As this is a published report and not a table in a database, all row and column titles were clear to understand. There is a textual description at the top of the report detailing where the information was collected from and how to interpret the results. Throughout the report descriptions of tables and footnotes are provided. Additionally, reading about NCC provided context to how and why the data was collected.</p>
+<p>Remediation Needed:</p>
+<p>The years 2007-2017 needed to be scraped and combined into a single table. The table we chose to scrape included data the from past year, this would lead to duplicate entries in our final table. It also included derived statistics, such as percent change, and crime category totals. The format of the table in the report would have triple header column names, and double row indexes, these would be an additional pain point when scripting with the data.</p>
+<p><strong>Offense Type by Age Group &amp; Offense Type by Year</strong></p>
+<p>Citation:</p>
+<p>“Arrest Data Query” 2017, <a href="http://www.nebraska.gov/crime\_commission/arrest/arrest.cgi" class="uri">http://www.nebraska.gov/crime\_commission/arrest/arrest.cgi</a>. Accessed 18 Sept. 2017.</p>
+<p>Description:</p>
+<p>Using the Arrest Data Query database provided by the NCC, we ran 2 queries to obtain the above datasets. The queries run on a full relation database we can not guess the size of. Each result generated from a query returned a 30 x 15 table, the axis names of which are contained in the names of the data sources. Their database engine only allows you to select 2 axis categories with which to execute queries, it does not allow for SQL querying.</p>
+<p>Metadata:</p>
+<p>The Nebraska Open Data project comes directly from the NE Governor's office. There is a lot of information about State operations, but nothing directly addressing the Open Data initiative ( <a href="http://www.nebraska.gov/government/open-data/" class="uri">http://www.nebraska.gov/government/open-data/</a>). On Arrest Data Query page, a paragraph details the database provided, and how to use it.</p>
+<p>Remediation Needed:</p>
+<p>As we were able to directly copy paste the values from the in-browser table generated from our query into Excel, no data cleaning was needed. All column names were clear, and no nulls were present. Any alterations would be aesthetic only.</p>
+<p><strong>Offence Type by Month &amp; Offence Type by Year</strong></p>
+<p>Citation:</p>
+<p>“Offence Data Query”, <a href="http://www.nebraska.gov/crime_commission/arrest/offense.cgi" class="uri">http://www.nebraska.gov/crime_commission/arrest/offense.cgi</a></p>
+<p>Description:</p>
+<p>Offence data is based on the crimes known to the law enforcement. It is based on the arrest dataset i.e. a person is arrested for what type of offence committed? The offence data is collected from the following crimes: <strong>Homicide, rape, assault, robbery, burglary, larceny, motor vehicle theft, and arson.</strong></p>
+<p>Using the Offence Data Query database provided by the NCC, we ran two queries and a sub query to obtain the above datasets. Each result from the query generates 31 columns and 14 rows for a specific year.</p>
+<p>Metadata:</p>
+<p>The Nebraska Open Data project comes directly from the NE Governor's office. There is a lot of information about State operations and the crime information is obtained from the Nebraska Crime Commission, but nothing directly addressing the Open Data initiative ( <a href="http://www.nebraska.gov/government/open-data/" class="uri">http://www.nebraska.gov/government/open-data/</a>). On Offence Data Query page, a paragraph details the database provided, and how to use it.</p>
+<p>Remediation Needed:</p>
+<p>As we were able to directly copy paste the values from the in-browser table generated from our query into Excel, no data cleaning was needed. All column names were clear, and no nulls were present. Any alterations would be aesthetic only.</p>
+<p><strong>S&amp;P 500 Monthly Price</strong></p>
+<p>Citation:</p>
+<p>“S&amp;P 500 Historical Prices by Month” 2017, <a href="http://www.multpl.com/s-p-500-historical-prices/table/by-month" class="uri">http://www.multpl.com/s-p-500-historical-prices/table/by-month</a>. Accessed 1 Oct. 2017.</p>
+<p>Description:</p>
+<p>This data was contained in a 1752 x 2 table listing the price of the S&amp;P 500 on the 1st of the month, for each year going back to 1871. The site appears to be maintained by a stock enthusiast, possibly to drive ad traffic to the site.</p>
+<p>Metadata:</p>
+<p>N/A</p>
+<p>Remediation Needed:</p>
+<p>As we were able to directly copy paste the values from the in-browser table into Excel, no data cleaning was needed. All column names were clear, and no nulls were present. Any alterations would be aesthetic only.</p>
+<p><strong>Unemployment Data across the state of Nebraska</strong> Citation:</p>
+<p><a href="https://data.bls.gov/timeseries/LASST310000000000003">Nebraska Unemployment Statistics&quot; 2017</a> <a href="https://data.bls.gov/timeseries/LASST310000000000003">https://data.bls.gov/timeseries/LASST310000000000003. Accessed 12 Oct. 2017.</a></p>
+<p>Description:</p>
+<p>The Nebraska unemployment statistics is obtained from the Bureau of Labor Statistics. The unemployment database can be formatted by specifying the year range and the view. For our project, I have specified the year range as 2007-2016 and the dataset generated from that query consists of 130 rows and 6 columns. The columns are describes as ‘Year’, ‘Period’, ‘Labor force’, ‘employment’, ‘unemployment’, and ‘unemployment rate’.</p>
+<p>Metadata:</p>
+<p>The unemployment data is obtained from the Bureau of Labor Statistics of the U.S. Department ( <a href="https://www.bls.gov/" class="uri">https://www.bls.gov/</a>). There is a lot of information about the labor market activity, working conditions, price changing conditions etc. Nebraska unemployment data can be obtained from the Local Area Unemployment Statistics ( <a href="https://www.bls.gov/lau/home.htm" class="uri">https://www.bls.gov/lau/home.htm</a>).</p>
+<p>Remediation Needed:</p>
+<p>As the dataset was already available in an excel format ready to be downloaded from the in-browser, no data cleaning was needed. All column names were clear, and no nulls were present. Any alterations would be aesthetic only.</p>
+<p><strong>County Population</strong></p>
+<p>Citation:</p>
+<p>“Nebraska Counties by Population” 2017,</p>
+<p><a href="https://www.nebraska-demographics.com/counties_by_population" class="uri">https://www.nebraska-demographics.com/counties_by_population</a>. Accessed 3 Oct. 2017.</p>
+<p>Description: This is data is from US census and is for 92 Counties ranked 1 through 92.</p>
+<p>Metadata: NA</p>
+<p>Remediation Needed: The data was already very pretty and could be pasted to any worksheet. Although later some cleaning was done to successfully import it to the dataframe in python scripts.</p>
+<p><strong>Data Cleaning Steps:</strong></p>
+<p>Organized by research question and author:</p>
+<p><strong>1. How does a county’s population level impact the types of crimes committed? - Shivani Singh Parihar</strong></p>
+<p>=== County Crime and County Population Cleaning and Merging ===</p>
+<p>= Documented by Shivani Singh</p>
+<p>=== General Info ===</p>
+<p>Manual cleaning steps are detailed in “Cleaning Steps”</p>
+<p>All other cleaning procedures were completed in:</p>
+<p>python 3.6.1</p>
+<p>pandas 0.20.1</p>
+<p>numpy 1.12.1</p>
+<p>R Studio</p>
+<p>Scripts are written in R with Python. Scripts have to be in the same folder where the raw data files are in order to be executed successfully</p>
+<p>=== Cleaning Steps ===</p>
+<p>***All functions referenced for data cleaning can be found in “crime_and_population_cleaning.py” and the dataframe merging steps can be found in “Combining_crime_and_population.R”***</p>
+<p>Data Cleaning Steps in Python</p>
+<p>*********************************</p>
+<ol style="list-style-type: decimal">
+<li>Data was scraped from the “Law Enforcement Employment in Nebraska Series” for the years 2016 through 2007 - (<a href="https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series" class="uri">https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series</a>) and by Nebraska demographics gave population for each county - (<a href="https://www.nebraska-demographics.com/counties\_by\_population" class="uri">https://www.nebraska-demographics.com/counties\_by\_population</a>)</li>
+</ol>
+<p>Data Checkpoint: County_and_agency_based_crime.csv &amp; County_population.csv</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>The county crime had data from 2000 onwards but we are only working with data from 2007 so the data before 2007 is removed</p></li>
+<li><p>The crime data had Agency data for each county and it has to be dropped as well it would have prevented us from grouping(using GROUPBY) the county crime data</p></li>
+<li><p>To complete our analysis, it was necessary to include the county's population as it would help us analyze how the population affects the number of crimes in each county. And in order to acheive this the county population column from county population data was merged with crime data</p></li>
+<li><p>It was discovered that few spaces in County_population.csv has some spaces which created problems while importing the file with panda. so in order to fix that I initially used sublime text and regex to replace those problematic spaces with an underscore</p></li>
+<li><p>After importing(refer step 5) I replaced the _County with and empty string in order to make a column of common values between the two CSVs that is County_and_agency_based_crime.csv &amp; County_population.csv</p></li>
+<li><p>Still few underscores persisted with in the county names, they were removed with the same approach as in step 6 that is they were replaced by using replace function and replaced underscore with an empty string</p></li>
+</ol>
+<p>Data merging Steps in R</p>
+<p>*********************************</p>
+<p>The data merging step between two CSV was difficult in Python as compared to R. So R was a better option to opt at this stage</p>
+<ol style="list-style-type: decimal">
+<li><p>First, set the working directory where pre-cleaned files from python scripts are located</p></li>
+<li><p>Create two dataframes for two different CSVs we are dealing with that is County_and_agency_based_crime.csv &amp; County_population.csv</p></li>
+<li><p>Create a new column “Population” in the crime data CSV and populate it with the matching county population data from the County_population.csv. Here the common column between both the CSV is “County”</p></li>
+</ol>
+<p>Final Cleaned Data: County_crime_and_population_combined.csv</p>
+<p><strong>2. How do police staffing levels impact overall Nebraska crime rates? - Will Wetzel</strong></p>
+<p>=== Law Enforcement Employment and Crime by Agency Cleaning and Merging ===</p>
+<p>= Documented by William Wetzel</p>
+<p>=== General Info ===</p>
+<p>Manual cleaning steps are detailed in “Cleaning Steps”</p>
+<p>All python script cleaning procedures were completed in:</p>
+<p>python 3.6.1</p>
+<p>pandas 0.20.1</p>
+<p>numpy 1.12.1</p>
+<p>Scripts can be run in R with rPython. You will still need to open the python file to select which function you are going to run, and specify file locations on your machine if needed. The script is meant to be run as it was developed, one function at a time. Even if running the script in R, you will need to manipulate the python code to point to the correct csv files, and to access the desired functions.</p>
+<p>=== Cleaning Steps ===</p>
+<p>***All functions referenced for data cleaning can be found in “law_enforcement_data_cleaning.py”***</p>
+<ol style="list-style-type: decimal">
+<li><p>Data was scraped from the “Law Enforcement Employment in Nebraska Series” for the years 2016 through 2007 - (<a href="https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series" class="uri">https://ncc.nebraska.gov/stat-reports#Crime\_in\_Nebraska\_Series</a>)</p>
+<p>Only one table from each pdf was scraped, it was decided the statistics for “Cities Above 5,000 Population” would be the most relevant to our research. An example of this table is found on page 4 of the 2016 employment data.</p>
+<p>Tabula (<a href="http://tabula.technology/" class="uri">http://tabula.technology/</a>) was used to convert each pdf table into a csv, which were then manually combined into a single cvs using excel using copy and paste functions. After the first year of data was scraped, a new column at the leftmost position was inserted named “year”, when a year of data was pasted into the combined table, the corresponding year was entered in the year column for all departments. Now “year” and “department” created a composite primary key for the table.</p></li>
+</ol>
+<p>Once all years of data had been scraped and combined, column titles were changed to reflect those detailed in “dataDict_lawStaff_vs_Crime.txt”, each column name was essentially created into an abbreviation.</p>
+<p>Data Checkpoint: raw_combined_data_law_enforcement_2007-2017.csv</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>To complete our analysis, it was necessary to include the county in which each department is located. A new column for county was added in the combined dataset using excel, it was inserted as the third column after “department”. For the year 2007, counties were researched and input by hand for each department. I would type the department name into google, find the county, and enter it with the corresponding department in 2007.</p></li>
+<li><p>It was discovered during this time, department names had different formats for each dataset year. For example, in 2007 department would “Omaha P.D” and in 2014 it would be “OMAHA PD”. To standardize department names, names were manually replaced in excel with copy paste by using the 2007 department naming convention for all years. It was ensured that for each year, the number of departments and their order were identical prior to copy pasting.</p></li>
+</ol>
+<p>Data Checkpoint: law_enforcement_2007-2017_department_names_matching.csv</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Now that all department names for each year matched, the function “law_enforcement_county_copier” from “law_enforcement_data_cleaning.py” was used to copy department counties to all departments.</li>
+</ol>
+<p>Data Checkpoint: “law_enforcement_2007-2017_counties.csv”</p>
+<ol start="5" style="list-style-type: decimal">
+<li>The function “period_remover” from “law_enforcement_data_cleaning.py” was used to turn department names from “… P.D.” to “… PD”</li>
+</ol>
+<p>Data Checkpoint: law_enforcement_2007-2017_pd.csv</p>
+<ol start="6" style="list-style-type: decimal">
+<li>The function “department_merger” was used to first identify departments from “law_enforcement_2007-2017_counties.csv” which did not have crime statistics in “All_Crimes_by_Year_and_Agency.csv”, data cleaning steps were included to rectify 2 missing names.</li>
+</ol>
+<p>Then the crime data was merged by agency or department with the law_enforcement_employment data.</p>
+<p>Final Cleaned Data: lawStaff_vs_Crime.csv</p>
+<p><strong>3. What trends in the types and amount of crimes committed can be observed? - Chaitra Venkatesan</strong></p>
+<p>=== Offence Type and Offence Month by Year Cleaning and Merging ===</p>
+<p>= Documented by Chaitra Venkatesan</p>
+<p>=== General Info ===</p>
+<p>Manual cleaning steps are detailed in “Cleaning Steps”</p>
+<p>=== Cleaning Steps ===</p>
+<ol style="list-style-type: decimal">
+<li>Data was scraped from the Offence Data Query hosted on the Nebraska government website ( <a href="http://www.nebraska.gov/crime_commission/arrest/offense.cgi" class="uri">http://www.nebraska.gov/crime_commission/arrest/offense.cgi</a>) for each particular year, starting from 2007 through 2016. The dataset generated was compiled for each year by having the offence type as column as months as rows.</li>
+</ol>
+<p>Data Checkpoint: Offence_Month_Year_NE_2007-2016.csv</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>The offence type for offence month can be obtained from the offence data query by specifying the year in the optional field.</p></li>
+<li><p>For further analysis, it was necessary to obtain the unemployment data of Nebraska from 2007-2016. This data was obtained from the Bureau of Labor Statistics by specifying the year range and the generated dataset was available to download in a csv format. The unemployment rate plays an important role in the number of offence committed.</p></li>
+</ol>
+<p>Data Checkpoint: NE_Unemployment_Rate_2007-2016.csv</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>To complete our analysis, we wanted to assess the S&amp;P 500 (Standard &amp; Poor) price change for each particular month from 2007-2016 and its effect on the offence committed. Historical monthly S&amp;P price data was scraped from ( <a href="https://urldefense.proofpoint.com/v2/url?u=http-3A__www.multpl.com_s-2Dp-2D500-2Dhistorical-2Dprices_table_by-2Dmonth&amp;d=DwMFaQ&amp;c=kj4KSSBt5oOaHuCCpWXkZw&amp;r=3QlgnfZB0OtTC1ww9qrZOBFg2gN5hkX7qHnyB3EpEdc&amp;m=UH8YviaGs2QMmKNRjtSqXhDcKL5O6Eg9iCIpm-zbqQ0&amp;s=Zm8f17rc63OFbjfWmMiAZa5aeb-yBmGbjMEFpKMLp0c&amp;e=">http://www.multpl.com/s-p-500-historical-prices/table/by-month</a>), and copied into Excel for the dates of from Jan-2016 through Dec-2007.</p></li>
+<li><p>A row was inserted at the top of the table to provide header columns. For columns 1-4 of the table on the first row, column header names were entered - “Month_Year”, “S&amp;P500_price”, “S&amp;P500_price_change”, “S&amp;P_500_percent_change”.</p></li>
+<li><p>In the third column, a formula to subtract the earlier month from the later month was entered to calculate the price difference from month to month; this formula was copied for each month of data. In the fourth column a formula of (Price Change/Previous Month Price) was entered to calculate the percent change month to month; this formula was applied to each month.</p></li>
+<li><p>Rounding was set to 3 decimal places for the percent change column. A date format mask of “mm/dd/yy” was applied to the Month_Year column.</p></li>
+</ol>
+<p>Data Checkpoint: S&amp;P500_Data_2007-2016.csv</p>
+<ol start="8" style="list-style-type: decimal">
+<li>The columns obtained from the Offence_Month_Year_NE_2007-2016.csv were formatted accordingly:</li>
+</ol>
+<p>· Month_Year was date formatted with a mask of ‘mm-yy’.</p>
+<p>· The offence type columns were formatted as Crime_offence name</p>
+<p>The rows were named from Jan-07 to Dec-16 and the corresponding offence data was copied from the Offence_Month_Year_NE_2007-2016.csv and merged accordingly.</p>
+<ol start="9" style="list-style-type: decimal">
+<li><p>Three new columns were inserted after the Month_Year column and they are ‘NE_Unemployment_Rate’ from NE_Unemployment_Rate_2007-2016.csv and ‘S&amp;P_500_Price_Change’, ‘S&amp;P_500_Percent_Gain_or Loss’ from S&amp;P500_Data_2007-2016.csv.</p></li>
+<li><p>The ‘NE_Unemployment_Rate’ data from the NE_Unemployment_Rate_2007-2016.csv and the</p></li>
+</ol>
+<p>‘S&amp;P_500_Price_Change’, ‘S&amp;P_500_Percent_Gain_or Loss’ data from the S&amp;P500_Data_2007-2016.csv were merged in the new combined sheet accordingly.</p>
+<p>Final Cleaned Data: Off typ_Off mnth_Unemp_S&amp;P500.csv</p>
+<p>Through this compiled dataset, we can identify multiple patterns such as the impact of unemployment rate on the crimes committed, the impact of stock price change on the crimes committed etc. across the state of Nebraska.</p>
+<div id="data-cleaning-code" class="section level3">
+<h3>Data Cleaning Code</h3>
 <p>See Readme for further details on Data Cleaning code.</p>
 <div id="county-population-and-crime-data-set" class="section level4">
 <h4>County Population and Crime Data set</h4>
-<p>‘’’{r eval=FALSE} # Set the working directory to where you have your CSVs placed</p>
-<p>setwd(‘/Users/shivanisingh/python_Datacleaning’)</p>
-</div>
-</div>
-<div id="create-a-dataframe-by-reading-the-csvs" class="section level1">
-<h1>Create a dataframe by reading the CSVs</h1>
-<p>t1 = read.csv(‘County_and_agency_based_crime.csv’) t2 = read.csv(‘County_population.csv’)</p>
-</div>
-<div id="the-next-line-creates-a-new-column-population-in-table-t1-which-is-county_and_agency_based_crime.csv-and-populates-it-with-the-population" class="section level1">
-<h1>The next line creates a new column ‘Population’ in table t1 which is ‘County_and_agency_based_crime.csv’ and populates it with the ‘Population’</h1>
-</div>
-<div id="column-of-table-t2-which-is-county_population.csv." class="section level1">
-<h1>column of table t2 which is ‘County_population.csv’.</h1>
-</div>
-<div id="it-maps-the-value-for-each-column-by-matching-the-counties-in-both-the-tableit-takes-county-column-as-a-key-and-matches-the-value" class="section level1">
-<h1>It maps the value for each column by matching the counties in both the table(it takes ‘County’ column as a key and matches the value)</h1>
-<p>t1<span class="math inline">\(Population &lt;- t2\)</span>Population[match(t1<span class="math inline">\(County, t2\)</span>County)]</p>
-</div>
-<div id="the-below-line-writes-the-merged-csv-to-county_crime_and_population_combined.csv" class="section level1">
-<h1>The below line writes the merged CSV to County_crime_and_population_combined.csv</h1>
-<p>write.csv(t1, ‘County_crime_and_population_combined.csv’) ```</p>
+<pre class="r"><code># Set the working directory to where you have your CSVs placed
+
+setwd('/Users/shivanisingh/python_Datacleaning')
+
+# Create a dataframe by reading the CSVs
+t1 = read.csv('County_and_agency_based_crime.csv')
+t2 = read.csv('County_population.csv')
+
+# The next line creates a new column 'Population' in table t1 which is 'County_and_agency_based_crime.csv' and populates it with the 'Population'
+# column of table t2 which is 'County_population.csv'.
+# It maps the value for each column by matching the counties in both the table(it takes 'County' column as a key and matches the value)
+t1$Population &lt;- t2$Population[match(t1$County, t2$County)]
+
+# The below line writes the merged CSV to County_crime_and_population_combined.csv
+write.csv(t1, 'County_crime_and_population_combined.csv')</code></pre>
 <pre class="r"><code>import pandas as pd 
 import numpy as np 
 
@@ -215,6 +435,7 @@ def county_population_cleaning(population):
 
 county_and_agency_crime('~/python_Datacleaning/County_and_agency_based_crime.csv')
 county_population_cleaning('~/python_Datacleaning/County_population.csv')</code></pre>
+</div>
 <div id="law-enforcement-staffing-rates" class="section level4">
 <h4>Law Enforcement Staffing Rates</h4>
 <pre class="r"><code>import pandas as pd
@@ -304,6 +525,20 @@ def department_merger(law, crime):
 #law_enforcement_county_copier():   
 #period_remover('law_enforcement_2007-2017.csv')
 #department_merger('law_enforcement_2007-2017.csv', 'All_Crimes_by_Year_and_Agency.txt')</code></pre>
+</div>
+<div id="unemployment-level-and-crime" class="section level4">
+<h4>Unemployment Level and Crime</h4>
+<p>Please see Excel cleaning steps detailed above in the writeup.</p>
+</div>
+</div>
+</div>
+<div id="analysis-scripts" class="section level2">
+<h2>Analysis Scripts</h2>
+<div id="how-do-police-staffing-levels-impact-overall-crime-rates" class="section level4">
+<h4>How do police staffing levels impact overall crime rates?</h4>
+<div id="dataset-law-enforcement-staffing-rates" class="section level5">
+<h5>Dataset: Law Enforcement Staffing Rates</h5>
+</div>
 </div>
 </div>
 
