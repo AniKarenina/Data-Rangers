@@ -52,7 +52,13 @@ The Nebraska unemployment data in this report is fetched from Bureau of Labor St
 The offence data statistics was obtained from the Nebraska government database ( [http://www.nebraska.gov/crime\_commission/arrest/offense.cgi](http://www.nebraska.gov/crime_commission/arrest/offense.cgi)) and according to their information use policy, the public can access, copy or download the material available on their website.
 
 #### Plots  
-Police Staffing  
+**Police Staffing Geography** 
 ![Police Staffing Image]
-(/images/soStaffingNe.png)
+(https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/soStaffingNe.png)  
+This plot showcases two interesting facts about police staffing throughout the state of NE. The best ratio of police to public exists in two of the largest counties, Sarpy and Douglas. When we compare the ratio of sworn officers to crime rates, we find there is little (0.09 Pearson) correlation between the two. This map also showcases that the majority of counties lack a police department, and officers in the middle of the state must travel north and south to provide coverage to residents. While data was not available detailing how police resources are spread across counties, it would be an interesting next step to obtain this information through interviews.  
+
+**Police Staffing vs Crime Rate**  
+![Police Staffing vs Crime]
+()
+
 

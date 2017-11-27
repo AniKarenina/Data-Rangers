@@ -546,8 +546,7 @@ Please see Excel cleaning steps detailed above in the writeup.
 ```{r include=FALSE}
 library(data.table)
 # Get data from our Github
-lawCrime <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/DataCleaningDeliverable/clean_data/lawStaff_vs_Crime.csv')
-
+lawCrime <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/DataCleaningDeliverable/clean_data/lawStaff_vs_Crime.csv', showProgress = FALSE)
 ```
 
 ```{r echo=FALSE, include=FALSE}
@@ -662,10 +661,8 @@ ggscatter(lawCrime, x = "total_so", y = "crime_per_1000",
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
           xlab = "Total Sworn Officers", ylab = "Crime per 1000", main = "Total Sworn Officers and Crime Rate")
+
 ```
-
-
-
 ```{r include=FALSE}
 
 years <- unique(lawCrime$year)
@@ -696,12 +693,13 @@ p <- ggplot(hiringCrimePlot, aes(x=years, y=cAvg)) +
   geom_point(aes(x = years, y = totAvg, color = "Total Officers")) + 
   geom_point(aes(x = years, y = fAvg, color = "Total Female Officers")) + 
   geom_point(aes(x = years, y = mAvg, color = "Total Male Officers")) + 
-  geom_line(aes(x = years, y = cAvg, color = "Average Crime Rate"))
+  geom_line(aes(x = years, y = cAvg, color = "Crime Trend (Not Actual Figures)"))
 p <- p + scale_fill_discrete(name = "New Legend Title")
 p <- p + labs(x = "Year", y = "Number", title = "Police Staffing Impact on Crime Rate")
-
+p <- p + theme(legend.title=element_blank())
 p
 ```
+  
 When we compare average hiring data year over year, it isn't obvious there is any relationship between the hiring rates of officers and the overall incidents of crime across the state.  In fact the year with the lowest crime incidence rate (2015), led to the greatest hiring spike, indicating at time this can even be an inverse relationship.
 
 ### Looking at the data geographically
