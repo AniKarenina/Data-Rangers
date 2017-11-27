@@ -59,6 +59,27 @@ This plot showcases two interesting facts about police staffing throughout the s
 
 **Police Staffing vs Crime Rate**  
 ![Police Staffing vs Crime]
-()
+(https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/policeCrime.png)  
+
+This chart shows that the relationship between police hiring rates and the overall crime rate are not related. While this is not a regression, by visually comparing the red crime trend line with the purple total officers trend - they have no relationship. When we check using Pearson Correlation, we find there is a 0.09912 correlation between total officer hiring rates and regional crime rate. 
 
 
+#### Findings
+
+See our knitted HTML document for complete code and visualization.
+
+##### How does the population level of a county impact the type of crimes committed?  
+
+##### How do police staffing levels impact overall crime rates?  
+
+Our main finding relating to this research question is that additional data and analysis is required to sufficiently answer this question. Using data provided by the NCC, we have determined there is no meaningful relationship between police staffing levels, hiring rates, or population covered by a given department and crime rate. We have learned that urban areas have more crime per person than rural areas across the entire state. 
+
+Rural areas typically have lower officer to population ratios than cities, yet still have significantly lower crime rates. Any given year, the counties with the highest crime rates fall within the top 20% of counties by population. This leads us to conclude that there is a population level of around 20,000 in the state of NE, where a county becomes "urbanized" for lack of a better term and is likely to encounter higher crime rates. Deploying more officers in this scenario is not showing to impact crime rates. Nebraska law enforcement will need to adopt additional strategies to combat crime in the states more populous areas.
+ 
+
+##### How do the types and amounts of crime committed change over the course of a year by unemployment? 
+
+
+
+
+Word Count: 

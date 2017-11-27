@@ -549,7 +549,7 @@ library(data.table)
 lawCrime <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/DataCleaningDeliverable/clean_data/lawStaff_vs_Crime.csv', showProgress = FALSE)
 ```
 
-```{r echo=FALSE, include=FALSE}
+```{r include=FALSE}
 # Replace null values with 0, from inconsistent data cleaning
 columnsToReplace <- lawCrime[,c("us_so_ft", "us_so_pt", "num_res_so",
                                 "us_c_ft", "us_c_pt")]
@@ -577,7 +577,7 @@ lawCrime$total_c <- lawCrime$ft_c_m + lawCrime$ft_c_f
 
 # Convert pop_covered from chr to num
 lawCrime$pop_covered <- as.numeric(gsub(",", "", lawCrime$pop_covered))
-str(lawCrime)
+#str(lawCrime)
 
 # Create a crime per 1000 column
 lawCrime$crime_per_1000 <- lawCrime$total_crime / lawCrime$pop_covered
@@ -618,8 +618,31 @@ for (department in departments){
 }
 
 ```
+**Descriptive Statistics**
+```{r}
+# There are 32 departments in Nebraska
+length(unique(lawCrime$department))
+# Spread across 27 counties
+length(unique(lawCrime$county))
 
-**Checking for any correlation between variables and the relative crime rate per 1000**
+# Not many obvious patterns among data
+pairs(~lawCrime$total_so+lawCrime$so_per_1000+lawCrime$total_crime+lawCrime$crime_per_1000,
+      labels = c("Total SO", "SO per 1000", "Total Crime", "Crime Rate"))
+
+# An average of 1.814 sworn officers per 1,000 people in NE for 2007-2016
+mean(lawCrime$so_per_1000)
+quantile(lawCrime$so_per_1000)
+# An average of 37,149 people are covered by each police department
+mean(lawCrime$pop_covered)
+# The ranges in the number of people covered by each police department
+quantile(lawCrime$pop_covered, probs=c(.1,.2,.3,.4,.5,.6,.7,.8,.9,1))
+# The ranges in the total crime incidents per county per year
+quantile(lawCrime$total_crime, probs=c(.1,.2,.3,.4,.5,.6,.7,.8,.9,1))
+# There is a range of 0 to 0.91 crimes per 1000 people
+quantile(lawCrime$crime_per_1000, probs=c(0,.2,.4,.6,.8,1))
+```
+
+**Checking for any correlation between variables and the relative crime rate per 1000**  
 The Crime rate per 1000 people is used as our starting point.  It is important to have a relative measure of crime with which to compare as the more highly populated an area - the more total crime we would expect, and we would expect a more populated area to have more total officers.
 ```{r}
 pCor_pop_covered <- cor(lawCrime$pop_covered, lawCrime$crime_per_1000, method="pearson")
@@ -637,16 +660,21 @@ pCor_annualMChange
 ```
 Interestingly, we find that the ratio of officers to civilians and the annual change in the hiring of officers has little impact on the overall crime rate.  It makes sense that the total number of sworn officers, and the total population covered by a department are moderately positively correlated with overall crime rate.  The more urban the setting - we find that there is more overall crime.
 
-**Looking for highest rates of crime per 1000 by department**
-For 2007-2016 for all departments, we sort by the highest crime rate per 1000 and select the top 30.  We can see that for 305 distinct crime rate measurements 8 departments share the worst 10% of crime rates.  In theory, since this is a relative measure - each county could be equally represented.  Scottsbluff and Grand Island are perhaps surprising that they showed up as many times as they did.  Omaha even though it is by far the most populous area only accounts for 4/30 of the worst 30 crime measurements in the dataset.
+**Looking for highest rates of crime per 1000 by department**  
+For 2007-2016 for all departments, we sort by the highest crime rate per 1000 and select the top 30.  We can see that for 305 distinct crime rate measurements 8 departments share the worst 10% of crime rates.  In theory, since this is a relative measure - each county could be equally represented.  Scottsbluff and Grand Island are perhaps surprising that they showed up as many times as they did.  Omaha even though it is by far the most populous area only accounts for 4/30 of the worst 30 crime measurements in the dataset. 
+
+Each county represented falls in the top 20% of counties in NE by population, we can conclude that if you live in an area with a population greater than 20,000, you will experience a higher crime rate than rural areas. It is not true however - the higher the population the higher the crime, there is just a threshold where counties will begin to become urbanized.
 ```{r}
 # Sort by crime rate per 1000
 lawCrimeSortCrimeRate <- lawCrime[order(-lawCrime$crime_per_1000),]
 lawCrimeSortCrimeRate <- head(lawCrimeSortCrimeRate, 30)
-worstCrimeRates <- table(lawCrimeSortCrimeRate$department)
-worstCrimeRates
+worstCrimeRatesDep <- table(lawCrimeSortCrimeRate$department)
+worstCrimeRatesCounty <- table(lawCrimeSortCrimeRate$county)
+
+worstCrimeRatesDep
+worstCrimeRatesCounty
 ```
-**Plotting the 2 variables which show some positive correlation with the crime rate per 1000**
+**Plotting the 2 variables which show some positive correlation with the crime rate per 1000**  
 My analysis of these plots is that it is largely the urban areas which account for the positive correlation.  Our conclusion is that at least in Nebraska, your relative crime rate will increase as you move to more populous areas of the state.  
 ```{r}
 library("ggpubr")
@@ -741,7 +769,7 @@ lawCrimeMapping <- aggregate(lawCrimeMapping[,c(3,4,5,6,7,8,9,10,12,13,14,17,18)
                              FUN=sum)
 ```
 
-```{r}
+```{r include=FALSE}
 # Calling mapping libraries
 library(readxl)
 library(dplyr)
@@ -749,6 +777,8 @@ library(choroplethr)
 library(choroplethrMaps)
 library(ggplot2)
 library(maps)
+```
+```{r include=FALSE}
 # Assigning a "region" to each county, 
 # "region" is a ggplot specific mapping address
 data(county.map)
@@ -769,6 +799,7 @@ county_mapSo <- county_choropleth(lawCrimeMapping, legend = "Number of Sworn Off
 ```{r, echo = FALSE}
 county_mapSo
 ```
+  
 We can see that the actual number of sworn officers differs by regions of the state.  Also, most counties do not have a police department located within their borders.  Our data doesn't indicate how police resources are allocated across county lines.
 
 
@@ -785,18 +816,8 @@ county_SoPer1000 <- county_choropleth(SoPer1000, legend = "Number of Sworn Offic
 ```{r, echo=FALSE}
 county_SoPer1000
 ```
+  
 Here we can see that some of the most populous areas, like Omaha and Grand Island, have some of the best sworn officer to general population ratio - but still experience the highest crime rate per 1000 people.  This leads us to conclude that more police officers will not necessarily reduce the amount of crime in a given county.
-
-#### Conclusions:
-#### How do police staffing levels impact overall crime rates?
-
-After thoroughly reviewing our data there are some key conclusions we can make.  
-
-1. Population density is the primary and only factor we discovered which statistically impacts crime rate.
-  *While it is not a direct relationship that the more population density present the more crime rate present, all of the counties with the highest crime rate fall within the top 10% of counties by population. While Omaha doesn't necessarily have more crime than Lincoln, an community with a population greater than 25,000 is significantly more likely to experience more crime per 1000 people than a rual community.  We have discovered that according to our data, you could hiring more officers in urban communities and it would not impact the crime rate.  We know this - as rural communites have the same or lower officer to population ratio, and experience lower levels in crime than urban areas.
-
-2. Hiring trends do not appear to be tied to the crime rate in any meaningful way.
-  *By plotting hiring and crime data over time, we can see there is no obvious relationship between the reported crime rate and hiring of police officers.
 
 
   
