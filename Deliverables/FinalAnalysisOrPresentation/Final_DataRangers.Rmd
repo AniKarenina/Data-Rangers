@@ -698,6 +698,8 @@ p <- ggplot(hiringCrimePlot, aes(x=years, y=cAvg)) +
   geom_point(aes(x = years, y = mAvg, color = "Total Male Officers")) + 
   geom_line(aes(x = years, y = cAvg, color = "Average Crime Rate"))
 p <- p + scale_fill_discrete(name = "New Legend Title")
+p <- p + labs(x = "Year", y = "Number", title = "Police Staffing Impact on Crime Rate")
+
 p
 ```
 When we compare average hiring data year over year, it isn't obvious there is any relationship between the hiring rates of officers and the overall incidents of crime across the state.  In fact the year with the lowest crime incidence rate (2015), led to the greatest hiring spike, indicating at time this can even be an inverse relationship.
