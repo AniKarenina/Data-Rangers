@@ -1,5 +1,5 @@
 ---
-title: "Final_DataRangers_8086"
+title: "Data Rangers - Crime in NE"
 output: html_document
 ---
 
@@ -585,6 +585,9 @@ lawCrime$crime_per_1000 <- lawCrime$total_crime / lawCrime$pop_covered
 
 # Creating a sworn officer employment change amount from year to year for each department
 lawCrime$total_so_change <- 0
+lawCrime$total_Fso_change <- 0
+lawCrime$total_Mso_change <- 0
+
 departments <- unique(lawCrime$department)
 years <- unique(lawCrime$year)
 # Remove 2016
@@ -598,6 +601,23 @@ for (department in departments){
   lawCrime[row,21] <- lawCrime$total_so[lawCrime$department == department & lawCrime$year == year+1] - lawCrime$total_so[lawCrime$department == department & lawCrime$year == year]}, error=function(e){})
   }
 }
+# Starting at 2008, record the change in total_so from the previous year for female officers
+for (department in departments){
+  for (year in years){
+    tryCatch({
+  row <- which(lawCrime$department == department & lawCrime$year == year+1)
+  lawCrime[row,22] <- lawCrime$ft_so_f[lawCrime$department == department & lawCrime$year == year+1] - lawCrime$ft_so_f[lawCrime$department == department & lawCrime$year == year]}, error=function(e){})
+  }
+}
+# Starting at 2008, record the change in total_so from the previous year for male officers
+for (department in departments){
+  for (year in years){
+    tryCatch({
+  row <- which(lawCrime$department == department & lawCrime$year == year+1)
+  lawCrime[row,23] <- lawCrime$ft_so_m[lawCrime$department == department & lawCrime$year == year+1] - lawCrime$ft_so_m[lawCrime$department == department & lawCrime$year == year]}, error=function(e){})
+  }
+}
+
 ```
 
 **Checking for any correlation between variables and the relative crime rate per 1000**
@@ -611,49 +631,172 @@ pCor_total_so <- cor(lawCrime$total_so, lawCrime$crime_per_1000, method="pearson
 pCor_total_so
 pCor_annualChange <- cor(lawCrime$total_so_change, lawCrime$crime_per_1000, method="pearson")
 pCor_annualChange
+pCor_annualFChange <- cor(lawCrime$total_Fso_change, lawCrime$crime_per_1000, method="pearson")
+pCor_annualFChange
+pCor_annualMChange <- cor(lawCrime$total_Mso_change, lawCrime$crime_per_1000, method="pearson")
+pCor_annualMChange
+```
+Interestingly, we find that the ratio of officers to civilians and the annual change in the hiring of officers has little impact on the overall crime rate.  It makes sense that the total number of sworn officers, and the total population covered by a department are moderately positively correlated with overall crime rate.  The more urban the setting - we find that there is more overall crime.
+
+**Looking for highest rates of crime per 1000 by department**
+For 2007-2016 for all departments, we sort by the highest crime rate per 1000 and select the top 30.  We can see that for 305 distinct crime rate measurements 8 departments share the worst 10% of crime rates.  In theory, since this is a relative measure - each county could be equally represented.  Scottsbluff and Grand Island are perhaps surprising that they showed up as many times as they did.  Omaha even though it is by far the most populous area only accounts for 4/30 of the worst 30 crime measurements in the dataset.
+```{r}
+# Sort by crime rate per 1000
+lawCrimeSortCrimeRate <- lawCrime[order(-lawCrime$crime_per_1000),]
+lawCrimeSortCrimeRate <- head(lawCrimeSortCrimeRate, 30)
+worstCrimeRates <- table(lawCrimeSortCrimeRate$department)
+worstCrimeRates
 ```
 **Plotting the 2 variables which show some positive correlation with the crime rate per 1000**
+My analysis of these plots is that it is largely the urban areas which account for the positive correlation.  Our conclusion is that at least in Nebraska, your relative crime rate will increase as you move to more populous areas of the state.  
 ```{r}
 library("ggpubr")
 ggscatter(lawCrime, x = "pop_covered", y = "crime_per_1000", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Total Population Covered", ylab = "Crime per 1000")
+          xlab = "Total Population Covered", ylab = "Crime per 1000", main = "Population Covered and Crime Rate")
 ```
+
 ```{r}
 ggscatter(lawCrime, x = "total_so", y = "crime_per_1000", 
           add = "reg.line", conf.int = TRUE, 
           cor.coef = TRUE, cor.method = "pearson",
-          xlab = "Total Sworn Officers", ylab = "Crime per 1000")
+          xlab = "Total Sworn Officers", ylab = "Crime per 1000", main = "Total Sworn Officers and Crime Rate")
 ```
 
 
 
-**Looking at how the officer per 1000 effects crime rate per 1000** 
-```{r echo=FALSE}
-# Remove entries with Inf for plotting
-lawCrimeNoInf <- lawCrime
-# lapply(lawCrimeNoInf, function(x) x[is.finite(x)])
-lawCrimeNoInf <- lawCrimeNoInf[Reduce(`&`, lapply(lawCrimeNoInf, function(x) !is.infinite(x))),]
+```{r include=FALSE}
+
+years <- unique(lawCrime$year)
+totAvg <- NA
+fAvg <- NA
+mAvg <- NA
+cAvg <- NA
+
+for (year in years){
+  totAvg <- append(totAvg, mean(lawCrime$total_so[lawCrime$year == year]))
+  fAvg <- append(fAvg, mean(lawCrime$ft_so_f[lawCrime$year == year]))
+  mAvg <- append(mAvg, mean(lawCrime$ft_so_m[lawCrime$year == year]))
+  cAvg <- append(cAvg, mean(lawCrime$total_crime[lawCrime$year == year]))
+
+}
+totAvg <- totAvg[-1]
+fAvg <- fAvg[-1]
+mAvg <- mAvg[-1]
+cAvg <- cAvg[-1]
+hiringCrimePlot <- data.frame(years, totAvg, fAvg, mAvg, cAvg)
+hiringCrimePlot$cAvg <- hiringCrimePlot$cAvg / 40
 ```
 
 ```{r}
-pCor <- cor(lawCrime$so_per_1000, lawCrime$crime_per_1000, method="pearson")
+library(ggplot2)
 
-# Regressing officers per 1000 and crime rate per 1000
-line <- lm(so_per_1000 ~ crime_per_1000, data = lawCrimeNoInf)
-plot(crime_per_1000 ~ so_per_1000, data = lawCrimeNoInf,
-pch = 16, cex = 0.3, col = "blue", 
-main = "SO/1000 & Crime/1000", 
-xlab = "SO per 1000", 
-ylab = "Crime per 1000") +
-abline(line)
+p <- ggplot(hiringCrimePlot, aes(x=years, y=cAvg)) +
+  geom_point(aes(x = years, y = totAvg, color = "Total Officers")) + 
+  geom_point(aes(x = years, y = fAvg, color = "Total Female Officers")) + 
+  geom_point(aes(x = years, y = mAvg, color = "Total Male Officers")) + 
+  geom_line(aes(x = years, y = cAvg, color = "Average Crime Rate"))
+p <- p + scale_fill_discrete(name = "New Legend Title")
+p
+```
+When we compare average hiring data year over year, it isn't obvious there is any relationship between the hiring rates of officers and the overall incidents of crime across the state.  In fact the year with the lowest crime incidence rate (2015), led to the greatest hiring spike, indicating at time this can even be an inverse relationship.
+
+### Looking at the data geographically
+
+```{r include=FALSE}
+
+# Mapping county zip codes to names
+library(data.table)
+postalCodes <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/R_Plot_Deliverable/us_postal_codes.csv')
+colnames(postalCodes)[5] <- "county"
+
+# Just keep zip codes and county names, and states
+postalCodes <- postalCodes[,c(-2,-4,-6,-7,-8)]
+
+# Rows in dataset matching counties in lawCrime and located in NE
+indexes <- which(postalCodes$State == 'Nebraska' & postalCodes$county %in% lawCrime$county) #& ])
+# Keep only matching rows in the zipcode file
+postalCodes <- postalCodes[indexes,]
+# Keep only one zip for each County
+postalCodes <- postalCodes[!duplicated(postalCodes$county),]
+
+
+# Create a new dataframe merging LawCrime with county zip codes
+lawCrimeMapping <- merge(lawCrime, postalCodes, by = "county", type = "inner")
+
+# Remove state and department columns
+lawCrimeMapping <- lawCrimeMapping[,-c(21, 3)]
+
+
+#!!!!! Map only 2016 data !!!!!#
+lawCrimeMapping <- lawCrimeMapping[lawCrimeMapping$year == 2016,]
+# Aggregate a number of columns in the event you want to map different things
+lawCrimeMapping$county <- as.character(lawCrimeMapping$county)
+
+lawCrimeMapping$pop_covered <- as.numeric(lawCrimeMapping$pop_covered)
+
+lawCrimeMapping <- aggregate(lawCrimeMapping[,c(3,4,5,6,7,8,9,10,12,13,14,17,18)], 
+                             by=list(county=lawCrimeMapping$county), 
+                             FUN=sum)
 ```
 
+```{r}
+# Calling mapping libraries
+library(readxl)
+library(dplyr)
+library(choroplethr)
+library(choroplethrMaps)
+library(ggplot2)
+library(maps)
+# Assigning a "region" to each county, 
+# "region" is a ggplot specific mapping address
+data(county.map)
+# Keep Nebraska data only
+county.map <- filter(county.map, STATE == 31)
+# Keep only one region code per county name
+county.map <- county.map[!duplicated(county.map$NAME),]
+# Join by county name
+lawCrimeMapping <- left_join(lawCrimeMapping, county.map, by = c("county" = "NAME"))
+# value is a required mapping column name
+colnames(lawCrimeMapping)[13] <- "value"
+# Plotting by number of full time officers
+county_mapSo <- county_choropleth(lawCrimeMapping, legend = "Number of Sworn Officers, 2016", 
+                                state_zoom = "nebraska", num_colors=6)
+# We can see there are many counties not officially covered by any police department
+```
+
+```{r, echo = FALSE}
+county_mapSo
+```
+We can see that the actual number of sworn officers differs by regions of the state.  Also, most counties do not have a police department located within their borders.  Our data doesn't indicate how police resources are allocated across county lines.
 
 
+```{r, include=FALSE}
+# Plotting by SO per 1000
+SoPer1000 <- lawCrimeMapping[,c("region", "so_per_1000")]
+colnames(SoPer1000)[2] <- "value"
+county_SoPer1000 <- county_choropleth(SoPer1000, legend = "Number of Sworn Officers Per 1000, 2016", 
+                                   state_zoom = "nebraska", num_colors=6)
+# It makes sense the central part of the state, being the most spread out,
+# has the lowest ratio
+```
+
+```{r, echo=FALSE}
+county_SoPer1000
+```
+Here we can see that some of the most populous areas, like Omaha and Grand Island, have some of the best sworn officer to general population ratio - but still experience the highest crime rate per 1000 people.  This leads us to conclude that more police officers will not necessarily reduce the amount of crime in a given county.
+
+#### Conclusions:
+#### How do police staffing levels impact overall crime rates?
+
+After thoroughly reviewing our data there are some key conclusions we can make.  
+
+1. Population density is the primary and only factor we discovered which statistically impacts crime rate.
+  *While it is not a direct relationship that the more population density present the more crime rate present, all of the counties with the highest crime rate fall within the top 10% of counties by population. While Omaha doesn't necessarily have more crime than Lincoln, an community with a population greater than 25,000 is significantly more likely to experience more crime per 1000 people than a rual community.  We have discovered that according to our data, you could hiring more officers in urban communities and it would not impact the crime rate.  We know this - as rural communites have the same or lower officer to population ratio, and experience lower levels in crime than urban areas.
+
+2. Hiring trends do not appear to be tied to the crime rate in any meaningful way.
+  *By plotting hiring and crime data over time, we can see there is no obvious relationship between the reported crime rate and hiring of police officers.
 
 
-
-
-
+  
