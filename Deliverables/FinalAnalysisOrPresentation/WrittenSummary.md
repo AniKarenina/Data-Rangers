@@ -79,6 +79,9 @@ Rural areas typically have lower officer to population ratios than cities, yet s
 
 ##### How do the types and amounts of crime committed change over the course of a year by unemployment? 
 
+The unemployment data in Nebraska is collected from 2007-2016 along with the types of crimes committed in those paticular years. Our main focus was to idcentify if there exists a relationship between the type of crime committed and the unemployment rate. If a relationship is identified, it would tell that a particular type of crime is committed more frequently because of the unemployment rate in Nebraska.
+
+From our analysis, it was identified that out of all the crimes committed in Nebraska as listed by the Nebraska Crime Commission, the frequency of crimes committed due to drving under influence and vandalism crimes were influenced by the unemployment rate. Thus, we can say that unemeployment rate is one among the many reasons for the incidence of such crimes.
 
 
 
