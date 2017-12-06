@@ -1,7 +1,10 @@
 ---
 title: "Data Rangers - Crime in NE"
-output: html_document
+output: 
+   html_document: 
+      toc: TRUE
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -535,7 +538,73 @@ def department_merger(law, crime):
 #department_merger('law_enforcement_2007-2017.csv', 'All_Crimes_by_Year_and_Agency.txt')
 ```
 
+## Research Question Analysis
+
+
+#### County Population and Crime Data set
+
+##### Crime as per population for counties with smaller population count
+
+```{r}
+library(data.table)
+library(ggplot2)
+county_crime_ratio <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/DataCleaningDeliverable/clean_data/County_crime_and_population_combined.csv')
+county_crime_ratio$crime_per_pop <- county_crime_ratio$Total / county_crime_ratio$Population
+
+library(ggplot2)
+library(ggrepel)
+county_crime_ratio$crime_per_pop <- county_crime_ratio$Total / county_crime_ratio$Population
+
+county_crime_ratio_with_low_population <- county_crime_ratio[county_crime_ratio$Population <= 10000 & county_crime_ratio$Population > 100,]
+
+q <- ggplot(county_crime_ratio_with_low_population, aes(Population, crime_per_pop, color = County))
+
+q + geom_point(shape=21, fill="White", size=3,stroke=1.5) + theme(legend.position = "none") + geom_text_repel(aes(label = County)) + xlab("Population of the County") + ylab("crime per population from 2007 to 2016") + ggtitle("Scatterplot for crimes per capita in the Nebraska County against Population (Couties with low population count)") + scale_x_continuous(labels = scales::comma)
+
+```
+
+> On comparing the plot just for the population and crime per population, we see there is not a major change when it comes to comparing between the counties. Except few counties like Pawnee is compartively higher than other counties when we take crime per population in account.
+
+## Crime per capita (number of crimes as per the population count)
+
+### Crime as per population for counties with Higher population count
+
+```{r}
+county_crime_ratio_with_high_population <- county_crime_ratio[county_crime_ratio$Population <= 600000 & county_crime_ratio$Population >= 10000,]
+
+h <- ggplot(county_crime_ratio_with_high_population, aes(Population, crime_per_pop, color = County))
+
+
+h + geom_point(shape=21, fill="White", size=3,stroke=1.5) + theme(legend.position = "none") + geom_text_repel(aes(label = County)) + xlab("Population of the County") + ylab("crime per population from 2007 to 2016") + ggtitle("Scatterplot for crimes per capita in the Nebraska County against Population (Counties with Higher Population)") + scale_x_continuous(labels = scales::comma)
+```
+
+> When plotting for the counties with Higher population, we see that most of counties which have fairly same or close to same population but the crime per population ration varies at a greater extent. Except for big county like Douglas which show the obvious behavior where the crime per population rate is higher and so is the population
+
+
 #### Unemployment Level and Crime
+
+```{r echo=FALSE}
+library(data.table)
+d <- fread('https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/R_Plot_Deliverable/test.csv')
+#setwd("c://Users/Nisha/Desktop/Data cleaning/")
+attach(d)
+```
+
+```{r}
+plot(NE_Unemployment_Rate, Crime_Driving_Under_the_Influence, pch = 16, cex = .9, col = "blue", main = "DUI Incidents and Unemployment Rate", xlab = "Unemployment Rate", ylab = "DUI Incidents")
+abline(lm(Crime_Driving_Under_the_Influence ~ NE_Unemployment_Rate))
+cor.test(Crime_Driving_Under_the_Influence, S_P_500_Percent_Gain_or_Loss)
+
+plot(NE_Unemployment_Rate, Crime_Vandalism, pch = 16, cex = .9, col = "green", main = "Vandalism Incidents per year and Unemployment Rate", xlab = "Unemployment Rate", ylab = "Vandalism Incidents")
+abline(lm(Crime_Vandalism ~ NE_Unemployment_Rate))
+
+plot(S_P_500_Percent_Gain_or_Loss, Crime_Forgery_and_Counterfeiting, pch = 16, cex = .9, col = "green", main = "Forgery Incidents per year and S&P Gain or Loss", xlab = "S&P Gain or Loss", ylab = "Forgery Incidents")
+abline(lm(Crime_Vandalism ~ NE_Unemployment_Rate))
+
+m1<-lm(Crime_Curfew~NE_Unemployment_Rate+Crime_Vagrancy,data=d)
+plot(m1)
+
+```
 
 Please see Excel cleaning steps detailed above in the writeup.
 
@@ -691,6 +760,7 @@ ggscatter(lawCrime, x = "total_so", y = "crime_per_1000",
           xlab = "Total Sworn Officers", ylab = "Crime per 1000", main = "Total Sworn Officers and Crime Rate")
 
 ```
+
 ```{r include=FALSE}
 
 years <- unique(lawCrime$year)
