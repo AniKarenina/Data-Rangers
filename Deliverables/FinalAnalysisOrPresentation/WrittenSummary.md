@@ -61,9 +61,12 @@ This plot showcases two interesting facts about police staffing throughout the s
 **Police Staffing vs Crime Rate**  
 ![Police Staffing vs Crime]
 (https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/policeCrime.png)  
-
 This chart shows that the relationship between police hiring rates and the overall crime rate are not related. While this is not a regression, by visually comparing the red crime trend line with the purple total officers trend - they have no relationship. When we check using Pearson Correlation, we find there is a 0.09912 correlation between total officer hiring rates and regional crime rate.
 
+** Vandalism Incidents Vs Unemployment rate
+![Vandalism incidents Vs Unemployment rate](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/vandalism_unem.png)
+
+This graph shows the relationship between the unemployment rate and vandalism crimes committed across the state of Nebaska on a yearly basis. The regression line displays the average number of crimes committed for a given unemployment rate.
 
 #### Findings
 
