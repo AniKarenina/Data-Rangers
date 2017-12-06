@@ -33,7 +33,7 @@ Contained in this repository are conclusions relating to the data analysis of Ne
 3. Full Written Summary(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/WrittenSummary.md)
   The written summary contains detailed information about each deliverable, as well as references, and arguments for our findings.
   
-4. **_Presentation Materials_**  
+4. Presentation Materials(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/In_Class_Presentation.pdf) 
   Presentation materials were utilized on 12-6-17 when giving in person presentations.
   
 5. [Contributorship](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/Contributorship.md)
