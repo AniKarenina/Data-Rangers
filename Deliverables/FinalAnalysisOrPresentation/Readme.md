@@ -30,10 +30,10 @@ Contained in this repository are conclusions relating to the data analysis of Ne
 2. [Audience Persona](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/Data_Rangers_Persona.pdf)  
   The audience persona was developed to better focus our research and presentation. When unsure of what is important to include, we reference our persona. It was revised after being peer reviewed by peers in our class.
 
-3. Full Written Summary(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/WrittenSummary.md)
+3. [Full Written Summary](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/WrittenSummary.md)
   The written summary contains detailed information about each deliverable, as well as references, and arguments for our findings.
   
-4. Presentation Materials(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/In_Class_Presentation.pdf) 
+4. [Presentation Materials](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/In_Class_Presentation.pdf) 
   Presentation materials were utilized on 12-6-17 when giving in person presentations.
   
 5. [Contributorship](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/Contributorship.md)
