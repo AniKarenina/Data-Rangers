@@ -11,7 +11,7 @@ Our 3 member team used open source data analysis tools to answer self-developed 
 
 1. How does the population level of a county impact the type of crimes committed?
 2. How do police staffing levels impact overall crime rates?
-3. How do the types and amounts of crime committed change over the course of a year?
+3. How does unemployment rate affect the types of crimes committed in a year?
 
 Data was primarily collected from the [Nebraska Crime Commission](https://ncc.nebraska.gov/), with some additional publically available data.
  
