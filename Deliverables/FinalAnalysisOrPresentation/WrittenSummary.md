@@ -97,4 +97,4 @@ From our analysis, it was identified that out of all the crimes committed in Neb
 
 
 
-Word Count:
+Word Count: 1000
