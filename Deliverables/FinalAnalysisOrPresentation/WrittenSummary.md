@@ -53,6 +53,15 @@ The offence data statistics was obtained from the Nebraska government database (
 
 #### Plots
 
+**Crime and Population**
+![Crime and Population image and Population and crime per population Image]
+
+(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimeAgainstPopulation.png)
+(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimePerPopHighPopulation.png)
+
+The two plot above show quite a different picture as the first one takes into account the Population and the Total Crime but the other one show the relation between Population and crime/population ratio. The First graph shows something obvious where the more people the higher the number of crime. But when the graph is plotted taking crime per population in account we see that most of the counties which have fairly close or similar population but the crime per population ratio varies at a fair extent. So that is what opens up the opportunity to ask or question that behavior.
+
+
 **Police Staffing Geography**
 ![Police Staffing Image]
 (https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/soStaffingNe.png)  
@@ -69,7 +78,9 @@ This chart shows that the relationship between police hiring rates and the overa
 
 See our knitted HTML document for complete code and visualization.
 
-##### How does the population level of a county impact the type of crimes committed?  
+##### How does the population level of a county impact the type of crimes committed?
+
+Our main finding shows the result that there is a direct correlation between the total number of crime and population of the county. If looked at the graph a linear regression line can be drawn. But we also found out that there was a very different plot when for a group of counties when we took the crime per population into account as it showed us that many counties with similar population has very different ratio of crime to population. For instance Holt and Red Willow county have almost similar population but the Red willow county's crime per population ration is much higher than Holt's; which is very interesting as it gives us opportunity to read into this deviant pattern
 
 ##### How do police staffing levels impact overall crime rates?  
 
