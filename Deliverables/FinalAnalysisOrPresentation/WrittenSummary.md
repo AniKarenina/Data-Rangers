@@ -54,10 +54,9 @@ The offence data statistics was obtained from the Nebraska government database (
 #### Plots
 
 **Crime and Population**
-![Crime and Population image and Population and crime per population Image]
+![Crime and Population image and Population and crime per population Image](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimeAgainstPopulation.png)
 
-(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimeAgainstPopulation.png)
-(https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimePerPopHighPopulation.png)
+![Crime and Population image and Population and crime per population Image1](https://github.com/Shivani-Parihar/Data-Rangers/blob/master/Deliverables/FinalAnalysisOrPresentation/images/CrimePerPopHighPopulation.png)
 
 The two plot above show quite a different picture as the first one takes into account the Population and the Total Crime but the other one show the relation between Population and crime/population ratio. The First graph shows something obvious where the more people the higher the number of crime. But when the graph is plotted taking crime per population in account we see that most of the counties which have fairly close or similar population but the crime per population ratio varies at a fair extent. So that is what opens up the opportunity to ask or question that behavior.
 
