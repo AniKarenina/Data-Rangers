@@ -51,8 +51,9 @@ The Nebraska unemployment data in this report is fetched from Bureau of Labor St
 
 The offence data statistics was obtained from the Nebraska government database ( [http://www.nebraska.gov/crime\_commission/arrest/offense.cgi](http://www.nebraska.gov/crime_commission/arrest/offense.cgi)) and according to their information use policy, the public can access, copy or download the material available on their website.
 
-#### Plots  
-**Police Staffing Geography** 
+#### Plots
+
+**Police Staffing Geography**
 ![Police Staffing Image]
 (https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/soStaffingNe.png)  
 This plot showcases two interesting facts about police staffing throughout the state of NE. The best ratio of police to public exists in two of the largest counties, Sarpy and Douglas. When we compare the ratio of sworn officers to crime rates, we find there is little (0.09 Pearson) correlation between the two. This map also showcases that the majority of counties lack a police department, and officers in the middle of the state must travel north and south to provide coverage to residents. While data was not available detailing how police resources are spread across counties, it would be an interesting next step to obtain this information through interviews.  
@@ -61,7 +62,7 @@ This plot showcases two interesting facts about police staffing throughout the s
 ![Police Staffing vs Crime]
 (https://raw.githubusercontent.com/Shivani-Parihar/Data-Rangers/master/Deliverables/FinalAnalysisOrPresentation/images/policeCrime.png)  
 
-This chart shows that the relationship between police hiring rates and the overall crime rate are not related. While this is not a regression, by visually comparing the red crime trend line with the purple total officers trend - they have no relationship. When we check using Pearson Correlation, we find there is a 0.09912 correlation between total officer hiring rates and regional crime rate. 
+This chart shows that the relationship between police hiring rates and the overall crime rate are not related. While this is not a regression, by visually comparing the red crime trend line with the purple total officers trend - they have no relationship. When we check using Pearson Correlation, we find there is a 0.09912 correlation between total officer hiring rates and regional crime rate.
 
 
 #### Findings
@@ -72,12 +73,12 @@ See our knitted HTML document for complete code and visualization.
 
 ##### How do police staffing levels impact overall crime rates?  
 
-Our main finding relating to this research question is that additional data and analysis is required to sufficiently answer this question. Using data provided by the NCC, we have determined there is no meaningful relationship between police staffing levels, hiring rates, or population covered by a given department and crime rate. We have learned that urban areas have more crime per person than rural areas across the entire state. 
+Our main finding relating to this research question is that additional data and analysis is required to sufficiently answer this question. Using data provided by the NCC, we have determined there is no meaningful relationship between police staffing levels, hiring rates, or population covered by a given department and crime rate. We have learned that urban areas have more crime per person than rural areas across the entire state.
 
 Rural areas typically have lower officer to population ratios than cities, yet still have significantly lower crime rates. Any given year, the counties with the highest crime rates fall within the top 20% of counties by population. This leads us to conclude that there is a population level of around 20,000 in the state of NE, where a county becomes "urbanized" for lack of a better term and is likely to encounter higher crime rates. Deploying more officers in this scenario is not showing to impact crime rates. Nebraska law enforcement will need to adopt additional strategies to combat crime in the states more populous areas.
- 
 
-##### How do the types and amounts of crime committed change over the course of a year by unemployment? 
+
+##### How do the types and amounts of crime committed change over the course of a year by unemployment?
 
 The unemployment data in Nebraska is collected from 2007-2016 along with the types of crimes committed in those paticular years. Our main focus was to idcentify if there exists a relationship between the type of crime committed and the unemployment rate. If a relationship is identified, it would tell that a particular type of crime is committed more frequently because of the unemployment rate in Nebraska.
 
@@ -85,4 +86,4 @@ From our analysis, it was identified that out of all the crimes committed in Neb
 
 
 
-Word Count: 
+Word Count:
